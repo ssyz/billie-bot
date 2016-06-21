@@ -136,9 +136,9 @@ function kittenMessage(recipientId, text) {
                                 "type": "web_url",
                                 "url": 8_imageUrl,
                                 "title": "Show details"}, {
-                                "type": "web_url",
-                                "url": 8_webUrl,
-                                "title": "More from 8coupon", }]
+                                "type": "postback",
+                                "title": "I like this",
+                                "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
                             },
 			    {
                             "title": "8coupon Deal of the Day",
@@ -147,10 +147,10 @@ function kittenMessage(recipientId, text) {
                                 "type": "web_url",
                                 "url": 8_imageUrl,
                                 "title": "Show details"}, {
-                                "type": "web_url",
-                                "url": 8_webUrl,
-                                "title": "More from 8coupon", }]
-                            },
+                                "type": "postback",
+                                "title": "I like this",
+                                "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
+                            }
 			]
                     }
                 }
