@@ -28,9 +28,16 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             if (!kittenMessage(event.sender.id, event.message.text)) {
-                sendMessage(event.sender.id, {text: "Echo: " + event.message.text});
-            }
-        }
+		if (event.message.text == "help") {
+			sendMessage(event.sender.id, {text: "dod -> list the deal of the day\ntechnology -> list the deals in technology\nfashion -> list the deals in fashion\nhelp -> list the available commands"});
+		}
+            } 	
+	    else {
+              	sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. Type 'help' for a list of commands."});
+	    }
+        } else if (event.postback) {
+    		console.log("Postback received: " + JSON.stringify(event.postback));
+	}
     }
     res.sendStatus(200);
 });
