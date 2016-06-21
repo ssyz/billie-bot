@@ -42,8 +42,7 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('HOWDY') >= 0 
 		 || event.message.text.toUpperCase().indexOf('GREETINGS') >= 0 
 		 || event.message.text.toUpperCase().indexOf('HELLO') >= 0 
-		 || event.message.text.toUpperCase().indexOf('HEY') >= 0
-		 || event.message.text.toUpperCase().indexOf('YO') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('HEY') >= 0) {
 			// hi is part of shit...
 			if (event.message.text.toUpperCase().indexOf('SHIT') >= 0) {
 				sendMessage(event.sender.id, {text: 
@@ -121,10 +120,40 @@ function sendMessage(recipientId, message) {
 // TODO: check for dod
 // TODO: check for different categories
 function kittenMessage(recipientId, text) {
+	switch(text) {
+		case (text.toUpperCase().indexOf('DOD') >= 0): 
+            		message = {
+                		"attachment": {
+                    		"type": "template",
+                    		"payload": {
+                        		"template_type": "generic",
+                        		"elements": [{
+                           		 "title": "Deal of the Day",
+                            		"subtitle": "Provided by 8coupon",
+                            		"image_url": "https://pp.vk.me/c627528/v627528167/8d9e/bBJhT76RHbo.jpg",
+                            		"buttons": [{
+                                		"type": "web_url",
+                                		"url": "https://www.youtube.com/",
+                                		"title": "Show dod"
+                                		}, {
+                                		"type": "postback",
+                                		"title": "Go to Deal page",
+                                		"payload": "User " + recipientId + " wants to go to " + imageUrl,
+                            		}]
+                        		}]
+                    		}
+                		}
+            		};
     
-    text = text || "";
-    var values = text.split(' ');
-    
+            		sendMessage(recipientId, message);
+            		return true;
+			break;
+
+		default:
+			return false;
+	}
+
+/*
     if (values.length === 3 && values[0] === 'kitten') {
         if (Number(values[1]) > 0 && Number(values[2]) > 0) {
             
@@ -160,6 +189,7 @@ function kittenMessage(recipientId, text) {
     }
     
     return false;
+*/
     
 };
 
