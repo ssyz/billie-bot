@@ -121,7 +121,7 @@ function sendMessage(recipientId, message) {
 // TODO: check for different categories
 function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
-	    var 8_imageUrl = "https://placekitten.com/200/300"
+	    var imageUrl = "https://placekitten.com/200/300"
             message = {
                 "attachment": {
                     "type": "template",
@@ -130,15 +130,18 @@ function kittenMessage(recipientId, text) {
                         "elements": [
 			    {
                             "title": "8coupon Deal of the Day",
+			    "subtitle": "",
                             "image_url": imageUrl ,
-                            "buttons": [{
+                            "buttons": [
+				{
                                 "type": "web_url",
-                                "url": 8_imageUrl,
-                                "title": "Show details"}, {
+                                "url": imageUrl,
+                                "title": "Show details"}, 
+				{
                                 "type": "postback",
                                 "title": "I like this",
                                 "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
-                            },
+                            }/*,
 			    {
                             "title": "8coupon Deal of the Day",
                             "image_url": imageUrl ,
@@ -150,6 +153,7 @@ function kittenMessage(recipientId, text) {
                                 "title": "I like this",
                                 "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
                             }
+			    */
 			]
                     }
                 }
