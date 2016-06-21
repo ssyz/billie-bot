@@ -141,19 +141,21 @@ function kittenMessage(recipientId, text) {
                                 "type": "web_url",
                                 "url": imageUrl,
                                 "title": "More from 8coupon"}]
-                            }/*,
+                            },
 			    {
                             "title": "8coupon Deal of the Day",
+			    "subtitle": "",
                             "image_url": imageUrl ,
-                            "buttons": [{
+                            "buttons": [
+				{
                                 "type": "web_url",
-                                "url": 8_imageUrl,
-                                "title": "Show details"}, {
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
+                                "url": imageUrl,
+                                "title": "Show details"}, 
+				{
+                                "type": "web_url",
+                                "url": imageUrl,
+                                "title": "More from 8coupon"}]
                             }
-			    */
 			]
                     }
                 }
