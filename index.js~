@@ -130,6 +130,7 @@ function kittenMessage(recipientId, text) {
                         "elements": [
 			    {
                             "title": "8coupon Deal of the Day",
+			    "subtitle": "",
                             "image_url": imageUrl ,
                             "buttons": [
 				{

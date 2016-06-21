@@ -138,9 +138,9 @@ function kittenMessage(recipientId, text) {
                                 "url": imageUrl,
                                 "title": "Show details"}, 
 				{
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
+                                "type": "web_url",
+                                "url": imageUrl,
+                                "title": "More from 8coupon"}]
                             }/*,
 			    {
                             "title": "8coupon Deal of the Day",
