@@ -28,13 +28,28 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             if (!kittenMessage(event.sender.id, event.message.text)) {
-		if (event.message.text == "help") {
-			sendMessage(event.sender.id, {text: "dod -> list the deal of the day\ntechnology -> list the deals in technology\nfashion -> list the deals in fashion\nhelp -> list the available commands"});
+		// introduction response
+		if (event.message.text.toUpperCase().indexOf('HI') >= 0 
+		 || event.message.text.toUpperCase().indexOf('SUP') >= 0 
+		 || event.message.text.toUpperCase().indexOf('HOWDY') >= 0 
+		 || event.message.text.toUpperCase().indexOf('GREETINGS') >= 0 
+		 || event.message.text.toUpperCase().indexOf('HELLO') >= 0 
+		 || event.message.text.toUpperCase().indexOf('HEY') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"Hey there! I am Bill-e, your personal, online, shopping assistant. I can help you find the best deals around. Simply type an item category like 'technology' or 'dod' (deals of the day) to begin! You can also type 'help' for a list of all the commands. Happy shopping :)"
+			});
+		}
+		// help command
+		else if (event.message.text.toUpperCase() == "HELP") {
+			sendMessage(event.sender.id, {text: 
+"dod -> list the deal of the day\ntechnology -> list the deals in technology\nfashion -> list the deals in fashion\nhelp -> list the available commands"
+			});
+		}
+		// default response for unrecognized inputs
+		else {
+			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. Type 'help' for a list of commands."});
 		}
             } 	
-	    else {
-              	sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. Type 'help' for a list of commands."});
-	    }
         } else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
 	}
