@@ -1,5 +1,5 @@
 /****
-Bill-e a Facebook Messenger Bot (with personality) that aggregates and modifies data from multiple "deals" API's to generate listings detailing the best deals of the day. Bill-e also includes a search-by-category function where users input a desired category (ie Technology) and deals related to the search are listed.
+Bill-e is a Facebook Messenger Bot (with personality) that aggregates and modifies data from multiple "deals" API's to generate listings detailing the best deals of the day. Bill-e also includes a search-by-category function where users input a desired category (ie Technology) and deals related to the search are listed.
 
 Author: Jay Syz
 ****/
@@ -122,6 +122,8 @@ function sendMessage(recipientId, message) {
 function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 	    var imageUrl = "https://placekitten.com/200/300"
+	    var deal_8 = "50% off!"
+	    var deal_source = "$10 off $50!"
             message = {
                 "attachment": {
                     "type": "template",
@@ -129,8 +131,8 @@ function kittenMessage(recipientId, text) {
                         "template_type": "generic",
                         "elements": [
 			    {
-                            "title": "8coupon Deal of the Day",
-			    "subtitle": "",
+                            "title": deal_8,
+			    "subtitle": "provided by 8coupon",
                             "image_url": imageUrl ,
                             "buttons": [
 				{
@@ -141,19 +143,21 @@ function kittenMessage(recipientId, text) {
                                 "type": "web_url",
                                 "url": imageUrl,
                                 "title": "More from 8coupon"}]
-                            }/*,
+                            },
 			    {
-                            "title": "8coupon Deal of the Day",
+                            "title": deal_source,
+			    "subtitle": "provided by source",
                             "image_url": imageUrl ,
-                            "buttons": [{
+                            "buttons": [
+				{
                                 "type": "web_url",
-                                "url": 8_imageUrl,
-                                "title": "Show details"}, {
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl, }]
+                                "url": imageUrl,
+                                "title": "Show details"}, 
+				{
+                                "type": "web_url",
+                                "url": imageUrl,
+                                "title": "More from source"}]
                             }
-			    */
 			]
                     }
                 }
