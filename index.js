@@ -121,26 +121,37 @@ function sendMessage(recipientId, message) {
 // TODO: check for different categories
 function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
-	    var imageUrl = "https://placekitten.com/200/300"
+	    var 8_imageUrl = "https://placekitten.com/200/300"
+	    var 8_webUrl = "https://www.youtube.com"
             message = {
                 "attachment": {
                     "type": "template",
                     "payload": {
                         "template_type": "generic",
-                        "elements": [{
-                            "title": "Deal of the Day",
-                            "subtitle": "provided by 8coupon",
+                        "elements": [
+			    {
+                            "title": "8coupon Deal of the Day",
                             "image_url": imageUrl ,
                             "buttons": [{
                                 "type": "web_url",
-                                "url": imageUrl,
-                                "title": "Show deal"
-                                }, {
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl,
-                            }]
-                        }]
+                                "url": 8_imageUrl,
+                                "title": "Show details"}, {
+                                "type": "web_url",
+                                "url": 8_webUrl,
+                                "title": "More from 8coupon", }]
+                            },
+			    {
+                            "title": "8coupon Deal of the Day",
+                            "image_url": imageUrl ,
+                            "buttons": [{
+                                "type": "web_url",
+                                "url": 8_imageUrl,
+                                "title": "Show details"}, {
+                                "type": "web_url",
+                                "url": 8_webUrl,
+                                "title": "More from 8coupon", }]
+                            }
+			]
                     }
                 }
             };
