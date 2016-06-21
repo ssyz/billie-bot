@@ -34,7 +34,13 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('HOWDY') >= 0 
 		 || event.message.text.toUpperCase().indexOf('GREETINGS') >= 0 
 		 || event.message.text.toUpperCase().indexOf('HELLO') >= 0 
-		 || event.message.text.toUpperCase().indexOf('HEY') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('HEY') >= 0
+		 || event.message.text.toUpperCase().indexOf('YO') >= 0) {
+			if (event.message.text.toUpperCase().indexOf('SHIT') >= 0) {
+				sendMessage(event.sender.id, {text: 
+":( did I do something wrong? Please don't curse."
+				});
+			}
 			sendMessage(event.sender.id, {text: 
 "Hey there! I am Bill-e, your personal, online, shopping assistant. I can help you find the best deals around. Simply type an item category like 'technology' or 'dod' (deals of the day) to begin! You can also type 'help' for a list of all the commands. Happy shopping :)"
 			});
@@ -61,7 +67,7 @@ app.post('/webhook', function (req, res) {
 			});
 		}
 		// joke response
-		else if (event.message.text.toUpperCase() == "TELL ME A JOKE") {
+		else if (event.message.text.toUpperCase().indexOf('TELL ME A JOKE') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Parallel lines have so much in common. It’s a shame they’ll never meet."
 			});
