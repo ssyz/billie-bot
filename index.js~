@@ -1,3 +1,11 @@
+/****
+Bill-e a Facebook Messenger Bot that aggregates and modifies data from multiple "deals" API's to generate listings detailing the best deals of the day. Bill-e also includes a search-by-category function where users input a desired category (ie Technology) and deals related to the search are listed.
+
+Author: Jay Syz
+****/
+
+
+// declare requirements
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
@@ -36,14 +44,17 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('HELLO') >= 0 
 		 || event.message.text.toUpperCase().indexOf('HEY') >= 0
 		 || event.message.text.toUpperCase().indexOf('YO') >= 0) {
+			// hi is part of shit...
 			if (event.message.text.toUpperCase().indexOf('SHIT') >= 0) {
 				sendMessage(event.sender.id, {text: 
 ":( did I do something wrong? Please don't curse."
 				});
 			}
-			sendMessage(event.sender.id, {text: 
+			else { 
+				sendMessage(event.sender.id, {text: 
 "Hey there! I am Bill-e, your personal, online, shopping assistant. I can help you find the best deals around. Simply type an item category like 'technology' or 'dod' (deals of the day) to begin! You can also type 'help' for a list of all the commands. Happy shopping :)"
-			});
+				});
+			}
 		}
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
@@ -67,11 +78,14 @@ app.post('/webhook', function (req, res) {
 			});
 		}
 		// joke response
+		// TODO: Make random joke generator
 		else if (event.message.text.toUpperCase().indexOf('TELL ME A JOKE') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Parallel lines have so much in common. It’s a shame they’ll never meet."
 			});
 		}
+		// TODO: add thanks response
+		// TODO: add bye response
 		// default response for unrecognized inputs
 		else {
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. Type 'help' for a list of commands."});
@@ -103,7 +117,9 @@ function sendMessage(recipientId, message) {
     });
 };
 
-// send rich message with kitten
+// send rich message with 8coupon API
+// TODO: check for dod
+// TODO: check for different categories
 function kittenMessage(recipientId, text) {
     
     text = text || "";
