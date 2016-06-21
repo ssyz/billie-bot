@@ -133,12 +133,12 @@ function kittenMessage(recipientId, text) {
                             		"image_url": "https://pp.vk.me/c627528/v627528167/8d9e/bBJhT76RHbo.jpg",
                             		"buttons": [{
                                 		"type": "web_url",
-                                		"url": imageUrl,
-                                		"title": "Show kitten"
+                                		"url": "https://www.youtube.com/",
+                                		"title": "Show dod"
                                 		}, {
                                 		"type": "postback",
-                                		"title": "I like this",
-                                		"payload": "User " + recipientId + " likes kitten " + imageUrl,
+                                		"title": "Go to Deal page",
+                                		"payload": "User " + recipientId + " wants to go to " + imageUrl,
                             		}]
                         		}]
                     		}
