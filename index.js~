@@ -45,6 +45,27 @@ app.post('/webhook', function (req, res) {
 "dod -> list the deal of the day\ntechnology -> list the deals in technology\nfashion -> list the deals in fashion\nhelp -> list the available commands"
 			});
 		}
+		// curse response
+		else if (event.message.text.toUpperCase().indexOf('DICK') >= 0 
+		 || event.message.text.toUpperCase().indexOf('PUSSY') >= 0 
+		 || event.message.text.toUpperCase().indexOf('CUNT') >= 0 
+		 || event.message.text.toUpperCase().indexOf('BASTARD') >= 0 
+		 || event.message.text.toUpperCase().indexOf('FUCK') >= 0 
+		 || event.message.text.toUpperCase().indexOf('DAMN') >= 0
+		 || event.message.text.toUpperCase().indexOf('BITCH') >= 0
+		 || event.message.text.toUpperCase().indexOf('ASSHOLE') >= 0
+		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0
+		 || event.message.text.toUpperCase().indexOf('SHIT') >= 0) {
+			sendMessage(event.sender.id, {text: 
+":( did I do something wrong? Please don't curse."
+			});
+		}
+		// help command
+		else if (event.message.text.toUpperCase() == "TELL ME A JOKE") {
+			sendMessage(event.sender.id, {text: 
+"Parallel lines have so much in common. It’s a shame they’ll never meet."
+			});
+		}
 		// default response for unrecognized inputs
 		else {
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. Type 'help' for a list of commands."});
