@@ -227,7 +227,6 @@ joke
 		// TODO: add "what should I do", "bored", "boring" suggester
 		// TODO: add common responses (ie. "how are you doing" "how old are you" "who are you")
 		// default response for unrecognized inputs
-		// TODO: add random fact at end of default message
 		else {
 			// array of facts
 			var arr = [ 'If you have 3 quarters, 4 dimes, and 4 pennies, you have $1.19. You also have the largest amount of money in coins without being able to make change for a dollar.',
@@ -333,7 +332,7 @@ joke
 
 			var fact = arr[Math.floor(Math.random()*arr.length)]
 
-			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands.\n\nBut since I don't want to leave you with nothing, did you know that: \n- " + fact});
+			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands.\n\nBut since I don't want to leave you with nothing, did you know that " + fact});
 		}
             } 	
         } else if (event.postback) {
