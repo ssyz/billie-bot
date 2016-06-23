@@ -220,14 +220,61 @@ joke
 		else if (event.message.text.toUpperCase().indexOf('BYE') >= 0
 		 || event.message.text.toUpperCase().indexOf('GOODBYE') >= 0) {
 			sendMessage(event.sender.id, {text: 
-"See ya later!"
+"See ya later! (Y)"
+			});
+		}
+		// leave response
+		else if (event.message.text.toUpperCase().indexOf('LEAVE') >= 0
+		 || event.message.text.toUpperCase().indexOf('SHUTDOWN') >= 0
+		 || event.message.text.toUpperCase().indexOf('OFF') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"NEVER!! I AM THE CAPTAIN NOW >.<"
+			});
+		}
+		// negative abbreviations response
+		else if (event.message.text.toUpperCase().indexOf('OMG') >= 0
+		 || event.message.text.toUpperCase().indexOf('WTF') >= 0
+		 || event.message.text.toUpperCase().indexOf('SMH') >= 0
+		 || event.message.text.toUpperCase().indexOf('PLZ') >= 0
+		 || event.message.text.toUpperCase().indexOf('PLS') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"ikr, i donut know what is happening :O"
+			});
+		}
+		// positive abbreviations response
+		else if (event.message.text.toUpperCase().indexOf('THX') >= 0
+		 || event.message.text.toUpperCase().indexOf('QT') >= 0
+		 || event.message.text.toUpperCase().indexOf('BB') >= 0
+		 || event.message.text.toUpperCase().indexOf('LOL') >= 0
+		 || event.message.text.toUpperCase().indexOf('ILY') >= 0
+		 || event.message.text.toUpperCase().indexOf('HAHA') >= 0
+		 || event.message.text.toUpperCase().indexOf('OOO') >= 0
+		 || event.message.text.toUpperCase().indexOf('IKR') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"hehe :c"
+			});
+		}
+		// age response
+		else if (event.message.text.toUpperCase().indexOf("HOW OLD ARE YOU") >= 0) {
+			sendMessage(event.sender.id, {text: 
+"I was born in June of 2016!"
+			});
+		}
+		// who are you response
+		else if (event.message.text.toUpperCase().indexOf("WHO ARE YOU") >= 0) {
+			sendMessage(event.sender.id, {text: 
+"I am Bill-e, a Facebook Messenger bot created to help you with common tasks but using a more convinient interface."
+			});
+		}
+		// how are you response
+		else if (event.message.text.toUpperCase().indexOf("HOW ARE YOU") >= 0) {
+			sendMessage(event.sender.id, {text: 
+"I'm doing great! Thanks for asking."
 			});
 		}
 		// TODO: add recommendation engine for movies, music, books, etc.
 		// TODO: add "what should I do", "bored", "boring" suggester
-		// TODO: add common responses (ie. "how are you doing" "how old are you" "who are you")
 		// default response for unrecognized inputs
-		// TODO: add random fact at end of default message
 		else {
 			// array of facts
 			var arr = [ 'If you have 3 quarters, 4 dimes, and 4 pennies, you have $1.19. You also have the largest amount of money in coins without being able to make change for a dollar.',
@@ -333,7 +380,7 @@ joke
 
 			var fact = arr[Math.floor(Math.random()*arr.length)]
 
-			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands.\n\nBut since I don't want to leave you with nothing, did you know that " + fact});
+			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands.\n\nBut since I don't want to leave you with nothing, did you know that: " + fact});
 		}
             } 	
         } else if (event.postback) {
