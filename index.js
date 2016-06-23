@@ -9,6 +9,7 @@ Author: Jay Syz
 var express = require('express');
 var bodyParser = require('body-parser');
 var request = require('request');
+var fs = require('fs');
 var app = express();
 
 app.use(bodyParser.urlencoded({extended: false}));
@@ -28,6 +29,9 @@ app.get('/webhook', function (req, res) {
         res.send('Invalid verify token');
     }
 });
+
+// array of jokes
+var array = fs.readFileSync('/home/jsyz/Desktop/jokes.txt').toString().split("\n");
 
 // handler receiving messages
 app.post('/webhook', function (req, res) {
@@ -76,15 +80,27 @@ app.post('/webhook', function (req, res) {
 ":( did I do something wrong? Please don't curse."
 			});
 		}
-		// joke response
-		// TODO: Make random joke generator
+		// random joke response
 		else if (event.message.text.toUpperCase().indexOf('TELL ME A JOKE') >= 0) {
+			var joke = array[Math.floor(Math.random()*array.length)]
 			sendMessage(event.sender.id, {text: 
-"Parallel lines have so much in common. It’s a shame they’ll never meet."
+joke
 			});
 		}
-		// TODO: add thanks response
-		// TODO: add bye response
+		// thanks response
+		else if (event.message.text.toUpperCase().indexOf('THANK') >= 0
+		 || event.message.text.toUpperCase().indexOf('THANKS') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"No problem ;)"
+			});
+		}
+		// bye response
+		else if (event.message.text.toUpperCase().indexOf('BYE') >= 0
+		 || event.message.text.toUpperCase().indexOf('GOODBYE') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"See ya later!"
+			});
+		}
 		// default response for unrecognized inputs
 		else {
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that. Type 'help' for a list of commands."});
@@ -172,6 +188,8 @@ function kittenMessage(recipientId, text) {
     
     return false;
 
+
+// example rich message
 /*
     if (values.length === 3 && values[0] === 'kitten') {
         if (Number(values[1]) > 0 && Number(values[2]) > 0) {
