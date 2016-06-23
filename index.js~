@@ -80,8 +80,7 @@ app.post('/webhook', function (req, res) {
 ":( did I do something wrong? Please don't curse."
 			});
 		}
-		// joke response
-		// TODO: Make random joke generator
+		// random joke response
 		else if (event.message.text.toUpperCase().indexOf('TELL ME A JOKE') >= 0) {
 			var joke = array[Math.floor(Math.random()*array.length)]
 			sendMessage(event.sender.id, {text: 

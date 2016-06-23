@@ -30,9 +30,6 @@ app.get('/webhook', function (req, res) {
     }
 });
 
-// array of jokes
-var array = fs.readFileSync('/home/jsyz/Desktop/jokes.txt').toString().split("\n");
-
 // handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
@@ -82,6 +79,8 @@ app.post('/webhook', function (req, res) {
 		}
 		// random joke response
 		else if (event.message.text.toUpperCase().indexOf('TELL ME A JOKE') >= 0) {
+			// array of jokes
+			var array = fs.readFileSync('/home/jsyz/Desktop/jokes.txt').toString().split("\n");
 			var joke = array[Math.floor(Math.random()*array.length)]
 			sendMessage(event.sender.id, {text: 
 joke
