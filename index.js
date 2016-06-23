@@ -380,7 +380,8 @@ joke
 
 			var fact = arr[Math.floor(Math.random()*arr.length)]
 
-			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands.\n\nBut since I don't want to leave you with nothing, did you know that: " + fact});
+			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
+			sendMessage(event.sender.id, {text: "Since I don't want to leave you with nothing, did you know that: " + fact});
 		}
             } 	
         } else if (event.postback) {
