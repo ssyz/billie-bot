@@ -261,7 +261,8 @@ joke
 			});
 		}
 		// who are you response
-		else if (event.message.text.toUpperCase().indexOf("WHO ARE YOU") >= 0) {
+		else if (event.message.text.toUpperCase().indexOf("WHO ARE YOU") >= 0
+		      || event.message.text.toUpperCase().indexOf("WHAT DO YOU DO") >= 0) {
 			sendMessage(event.sender.id, {text: 
 "I am Bill-e, a Facebook Messenger bot created to help you with common tasks but using a more convinient interface."
 			});
@@ -381,7 +382,7 @@ joke
 			var fact = arr[Math.floor(Math.random()*arr.length)]
 
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
-			sendMessage(event.sender.id, {text: "But since I don't want to leave you with nothing, did you know that: " + fact});
+			sendMessage(event.sender.id, {text: "Since I don't want to leave you with nothing, did you know that: " + fact});
 		}
             } 	
         } else if (event.postback) {
@@ -415,10 +416,25 @@ function sendMessage(recipientId, message) {
 // TODO: check for different categories
 function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
-	    var imageUrl = "https://placekitten.com/200/300"
-	    var webUrl = "http://www.8coupons.com/"
-	    var deal_8 = "50% off!"
-	    //var deal_source = "$10 off $50!"
+
+	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=1"
+
+	    request({
+    		url: ebay_url,
+    		json: true
+	    }, function (error, response, body) {
+
+   	    	if (!error && response.statusCode === 200) {
+		    body.entry.forEach(function(item) {
+            		var ebay_title = item.title
+	    		var ebay_DealURL = item.DealURL
+	    		var ebay_ImageURL = item.ImageURL
+        	    })
+    		}
+		})
+
+	    var ebay_webUrl = "http://deals.ebay.com/"
+
             message = {
                 "attachment": {
                     "type": "template",
@@ -426,18 +442,18 @@ function kittenMessage(recipientId, text) {
                         "template_type": "generic",
                         "elements": [
 			    {
-                            "title": deal_8,
+                            "title": ebay_title,
 			    "subtitle": "provided by 8coupons",
-                            "image_url": imageUrl ,
+                            "image_url": ebay_ImageURL ,
                             "buttons": [
 				{
                                 "type": "web_url",
-                                "url": imageUrl,
+                                "url": ebay_DealURL,
                                 "title": "Show details"}, 
 				{
                                 "type": "web_url",
-                                "url": webUrl,
-                                "title": "More from 8coupons"}]
+                                "url": ebay_webUrl,
+                                "title": "More from Ebat"}]
                             }/*,
 			    {
                             "title": deal_source,
@@ -506,6 +522,9 @@ function kittenMessage(recipientId, text) {
     return false;
 */
 
+
+// TODO: Add simple music player
+	// use spotify API
 // TODO: Add calculator functionality
 	// "calculate: ___"
 // TODO: Add simple reminder functionality
