@@ -468,7 +468,6 @@ function kittenMessage(recipientId, text) {
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
-		    body.entry.forEach(function(item) {
             		var msg = body.sales[Math.floor(Math.random()*body.sales.length)]
 			var etsy_title = msg.name
 			var etsy_DealURL = msg.sale_url
@@ -501,7 +500,6 @@ function kittenMessage(recipientId, text) {
             		};
     
             		sendMessage(recipientId, message);
-        	    })
     		}
 	    })
 

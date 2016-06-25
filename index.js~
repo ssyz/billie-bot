@@ -492,7 +492,7 @@ function kittenMessage(recipientId, text) {
                                 		"title": "Show details"}, 
 						{
                                 		"type": "web_url",
-                                		"url": etsy_webUrl,
+                                		"url": etsy_webURL,
                                 		"title": "More from etsy"}]
                             		}
 					]
