@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'tell me a joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
+"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'top rated movies' -> Bill-e lists the top rated movies according to different movie review sites\n'tell me a joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
 			});
 		}
 		// curse response
@@ -523,6 +523,7 @@ function kittenMessage(recipientId, text) {
             return true;
     }
 
+    // TODO: add more movies API's
     else if (text.toUpperCase().indexOf('MOVIE') >= 0) {
 
 	    var tmdb_url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7b97857087d9e02a9a3da1932781e9ac"
@@ -547,7 +548,7 @@ function kittenMessage(recipientId, text) {
                         		"elements": [
 			    		{
                             		"title": tmdb_title,
-			    		"subtitle": "provided by tmdb",
+			    		"subtitle": "based on ratings from tmdb",
                             		"image_url": tmdb_ImageURL ,
                             		"buttons": [
 						{
