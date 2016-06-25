@@ -1,5 +1,5 @@
 /****
-Bill-e is a Facebook Messenger Bot (with personality) that aggregates and modifies data from multiple "deals" API's to generate listings detailing the best deals of the day. Bill-e also includes a search-by-category function where users input a desired category (ie Technology) and deals related to the search are listed.
+Bill-e is a Facebook Messenger Bot (with personality) that acts as your personal, online assistant. He can help you with common tasks - from finding the shopping deals to playing music. Bill-e works by aggregating and modifying data from multiple API's to provide you with the best services.
 
 Author: Jay Syz
 ****/
@@ -59,7 +59,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"dod -> list the deal of the day\ntechnology -> list the deals in technology\nfashion -> list the deals in fashion\nhelp -> list the available commands"
+"dod -> Bill-e lists the shopping deals of the day\ntell me a joke -> Bill-e tells you a random joke\nhelp -> Bill-e lists the available commands\n**When all else fails, just try talking to Bill-e as if he was just another person!**"
 			});
 		}
 		// curse response
@@ -411,9 +411,7 @@ function sendMessage(recipientId, message) {
     });
 };
 
-// send rich message with 8coupon API
-// TODO: check for dod
-// TODO: check for different categories
+// TODO: add API's to dod feed
 function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 
@@ -492,7 +490,7 @@ function kittenMessage(recipientId, text) {
 						{
                                 		"type": "web_url",
                                 		"url": gilt_webURL,
-                                		"title": "More from etsy"}]
+                                		"title": "More from gilt"}]
                             		}
 					]
                     			}	
