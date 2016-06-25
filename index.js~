@@ -425,10 +425,10 @@ function kittenMessage(recipientId, text) {
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
-		    body.entry.forEach(function(item) {
-            		var ebay_title = item.title
-	    		var ebay_DealURL = item.DealURL
-	    		var ebay_ImageURL = item.ImageURL
+			var msg = body.entry[Math.floor(Math.random()*body.entry.length)]
+            		var ebay_title = msg.title
+	    		var ebay_DealURL = msg.DealURL
+	    		var ebay_ImageURL = msg.ImageURL
 			var ebay_webUrl = "http://deals.ebay.com/"
 
 			message = {
@@ -457,7 +457,6 @@ function kittenMessage(recipientId, text) {
             		};
     
             		sendMessage(recipientId, message);
-        	    })
     		}
 	    })
 
