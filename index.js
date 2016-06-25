@@ -522,6 +522,50 @@ function kittenMessage(recipientId, text) {
 
             return true;
     }
+
+    else if (text.toUpperCase().indexOf('MOVIE') >= 0) {
+
+	    var tmdb_url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7b97857087d9e02a9a3da1932781e9ac"
+
+	    // generate top rated movie from tmdb
+	    request({
+    		url: tmdb_url,
+    		json: true
+	    }, function (error, response, body) {
+
+   	    	if (!error && response.statusCode === 200) {
+            		var tmdb_title = body.results[0].title
+	    		var tmdb_overview = body.results[0].overview
+	    		var tmdb_ImageURL = "https://image.tmdb.org/t/p/w370" + body.results[0].poster_path
+			var tmdb_webUrl = "https://www.themoviedb.org/discover/movie?language=en"
+
+			message = {
+                		"attachment": {
+                    		"type": "template",
+                    		"payload": {
+                        		"template_type": "generic",
+                        		"elements": [
+			    		{
+                            		"title": tmdb_title,
+			    		"subtitle": "provided by tmdb",
+                            		"image_url": tmdb_ImageURL ,
+                            		"buttons": [
+						{
+                                		"type": "web_url",
+                                		"url": tmdb_webUrl,
+                                		"title": "More from tmdb"}]
+                            		}
+					]
+                    			}	
+                		}
+            		};
+    
+            		sendMessage(recipientId, message);
+    		}
+	    })
+
+            return true;
+    }
     
     return false;
 
