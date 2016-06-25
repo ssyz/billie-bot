@@ -418,7 +418,7 @@ function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 
 	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=1"
-	    var etsy_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
+	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
 
 	    request({
     		url: ebay_url,
@@ -463,16 +463,16 @@ function kittenMessage(recipientId, text) {
 	    })
 
 	    request({
-    		url: etsy_url,
+    		url: gilt_url,
     		json: true
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
             		var msg = body.sales[Math.floor(Math.random()*body.sales.length)]
-			var etsy_title = msg.name
-			var etsy_DealURL = msg.sale_url
-			var etsy_ImageURL = "http://www.trademarkologist.com/files/2014/10/Gilt.jpg"
-			var etsy_webURL = "http://www.gilt.com/sale/women"
+			var gilt_title = msg.name
+			var gilt_DealURL = msg.sale_url
+			var gilt_ImageURL = "http://www.trademarkologist.com/files/2014/10/Gilt.jpg"
+			var gilt_webURL = "http://www.gilt.com/sale/women"
 
 			message = {
                 		"attachment": {
@@ -481,18 +481,18 @@ function kittenMessage(recipientId, text) {
                         		"template_type": "generic",
                         		"elements": [
 			    		{
-                            		"title": etsy_title,
-			    		"subtitle": "provided by etsy",
-                            		"image_url": etsy_ImageURL ,
+                            		"title": gilt_title,
+			    		"subtitle": "provided by gilt",
+                            		"image_url": gilt_ImageURL ,
                             		"buttons": [
 						{
                                 		"type": "web_url",
-                                		"url": etsy_DealURL,
+                                		"url": gilt_DealURL,
                                 		"title": "Show details"}, 
 						{
                                 		"type": "web_url",
-                                		"url": etsy_webURL,
-                                		"title": "More from etsy"}]
+                                		"url": gilt_webURL,
+                                		"title": "More from gilt"}]
                             		}
 					]
                     			}	
