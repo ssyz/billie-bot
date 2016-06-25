@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"dod -> Bill-e lists the shopping deals of the day\ntell me a joke -> Bill-e tells you a random joke\nhelp -> Bill-e lists the available commands\n\n**When all else fails, just try talking to Bill-e as if he was just another person!"
+"Available commands:\n\u2022'dod' -> Bill-e lists random shopping deals of the day\n\u2022'tell me a joke' -> Bill-e tells you a random joke\n\u2022'help' -> Bill-e lists the available commands"
 			});
 		}
 		// curse response
@@ -64,7 +64,6 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('DAMN') >= 0
 		 || event.message.text.toUpperCase().indexOf('BITCH') >= 0
 		 || event.message.text.toUpperCase().indexOf('ASSHOLE') >= 0
-		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0
 		 || event.message.text.toUpperCase().indexOf('SHIT') >= 0) {
 			sendMessage(event.sender.id, {text: 
 ":( did I do something wrong? Please don't curse."
@@ -267,7 +266,8 @@ joke
 		 || event.message.text.toUpperCase().indexOf('IMBECILE') >= 0
 		 || event.message.text.toUpperCase().indexOf('RETARD') >= 0
 		 || event.message.text.toUpperCase().indexOf('MORON') >= 0
-		 || event.message.text.toUpperCase().indexOf('IDIOTIC') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('IDIOTIC') >= 0
+		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Wow that was mean..."
 			});
