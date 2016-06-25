@@ -38,23 +38,16 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
             if (!kittenMessage(event.sender.id, event.message.text)) {
 		// introduction response
-		if (event.message.text.toUpperCase().indexOf('HI') >= 0 
-		 || event.message.text.toUpperCase().indexOf('SUP') >= 0 
-		 || event.message.text.toUpperCase().indexOf('HOWDY') >= 0 
-		 || event.message.text.toUpperCase().indexOf('GREETINGS') >= 0 
-		 || event.message.text.toUpperCase().indexOf('HELLO') >= 0 
-		 || event.message.text.toUpperCase().indexOf('HEY') >= 0) {
-			// hi is part of shit...
-			if (event.message.text.toUpperCase().indexOf('SHIT') >= 0) {
-				sendMessage(event.sender.id, {text: 
-":( did I do something wrong? Please don't curse."
-				});
-			}
-			else { 
-				sendMessage(event.sender.id, {text: 
+		if (event.message.text.toUpperCase().indexOf('HI') == 0 
+		 || event.message.text.toUpperCase().indexOf('SUP') == 0 
+		 || event.message.text.toUpperCase().indexOf('HOWDY') == 0 
+		 || event.message.text.toUpperCase().indexOf('GREETINGS') == 0 
+		 || event.message.text.toUpperCase().indexOf('HELLO') == 0 
+		 || event.message.text.toUpperCase().indexOf('HEY') == 0) {
+
+		 sendMessage(event.sender.id, {text: 
 "Hey there! I am Bill-e, your personal, online assistant. I can help you with common tasks - from finding the shopping deals to playing music. For example, type 'dod' (deals of the day) to see a list of great deals available today! You can also type 'help' for a list of all the commands. :)"
 				});
-			}
 		}
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
@@ -254,6 +247,31 @@ joke
 "hehe :c"
 			});
 		}
+		// positive response
+		else if (event.message.text.toUpperCase().indexOf('GREAT') >= 0
+		 || event.message.text.toUpperCase().indexOf('GOOD') >= 0
+		 || event.message.text.toUpperCase().indexOf('AWESOME') >= 0
+		 || event.message.text.toUpperCase().indexOf('SMART') >= 0
+		 || event.message.text.toUpperCase().indexOf('FUNNY') >= 0
+		 || event.message.text.toUpperCase().indexOf('BEST') >= 0
+		 || event.message.text.toUpperCase().indexOf('FRIEND') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"Thanks!! You're too kind :3"
+			});
+		}
+		// negative response
+		else if (event.message.text.toUpperCase().indexOf('STUPID') >= 0
+		 || event.message.text.toUpperCase().indexOf('DUMB') >= 0
+		 || event.message.text.toUpperCase().indexOf('CRAZY') >= 0
+		 || event.message.text.toUpperCase().indexOf('FAT') >= 0
+		 || event.message.text.toUpperCase().indexOf('IMBECILE') >= 0
+		 || event.message.text.toUpperCase().indexOf('RETARD') >= 0
+		 || event.message.text.toUpperCase().indexOf('MORON') >= 0
+		 || event.message.text.toUpperCase().indexOf('IDIOTIC') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"Wow that was mean..."
+			});
+		}
 		// age response
 		else if (event.message.text.toUpperCase().indexOf("HOW OLD ARE YOU") >= 0) {
 			sendMessage(event.sender.id, {text: 
@@ -415,10 +433,10 @@ function sendMessage(recipientId, message) {
 function kittenMessage(recipientId, text) {
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 
-	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=1"
+	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=50"
 	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
 
-	    // TODO: change so ebay results are random too
+	    // generate random daily deal from ebay
 	    request({
     		url: ebay_url,
     		json: true
@@ -460,6 +478,7 @@ function kittenMessage(recipientId, text) {
     		}
 	    })
 
+	    // generate random daily deal from gilt
 	    request({
     		url: gilt_url,
     		json: true
