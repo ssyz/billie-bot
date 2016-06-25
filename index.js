@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"Available commands:\n\u2022'dod' -> Bill-e lists random shopping deals of the day\n\u2022'tell me a joke' -> Bill-e tells you a random joke\n\u2022'help' -> Bill-e lists the available commands"
+"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'tell me a joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
 			});
 		}
 		// curse response
