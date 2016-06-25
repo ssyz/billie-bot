@@ -59,7 +59,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"dod -> Bill-e lists the shopping deals of the day\ntell me a joke -> Bill-e tells you a random joke\nhelp -> Bill-e lists the available commands\n**When all else fails, just try talking to Bill-e as if he was just another person!**"
+"dod -> Bill-e lists the shopping deals of the day\ntell me a joke -> Bill-e tells you a random joke\nhelp -> Bill-e lists the available commands\n\n**When all else fails, just try talking to Bill-e as if he was just another person!"
 			});
 		}
 		// curse response
@@ -418,16 +418,17 @@ function kittenMessage(recipientId, text) {
 	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=1"
 	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
 
+	    // TODO: change so ebay results are random too
 	    request({
     		url: ebay_url,
     		json: true
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
-		    body.entry.forEach(function(item) {
-            		var ebay_title = item.title
-	    		var ebay_DealURL = item.DealURL
-	    		var ebay_ImageURL = item.ImageURL
+			var msg = body.entry[Math.floor(Math.random()*body.entry.length)]
+            		var ebay_title = msg.title
+	    		var ebay_DealURL = msg.DealURL
+	    		var ebay_ImageURL = msg.ImageURL
 			var ebay_webUrl = "http://deals.ebay.com/"
 
 			message = {
@@ -456,7 +457,6 @@ function kittenMessage(recipientId, text) {
             		};
     
             		sendMessage(recipientId, message);
-        	    })
     		}
 	    })
 
