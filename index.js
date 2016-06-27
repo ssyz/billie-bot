@@ -600,6 +600,8 @@ function kittenMessage(recipientId, text) {
 
 	    if (values.length === 2 && values[1].toUpperCase() === 'NEWS') {
 
+		return true
+
 		var category = values[0]
 		var guardian_url = "http://content.guardianapis.com/search?q=" + category + "/politics&from-date=2016-01-01&api-key=1c9dab3d-d62d-48db-b7f2-3f614f487a00"
 
@@ -656,6 +658,9 @@ function kittenMessage(recipientId, text) {
 
 				// send message list
             			sendMessage(recipientId, message_final);
+				sendMessage(recipientId, {text: 
+	"** The Guardian has a default news page so if you don't get articles in your category, try again!"
+				});
 				return true;
 
     			}

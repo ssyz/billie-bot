@@ -621,7 +621,7 @@ function kittenMessage(recipientId, text) {
             				var guardian_title = item.webTitle
 	    				var guardian_date = item.webPublicationDate
 					guardian_date = guardian_date.substring(0, 10)
-	    				var guardian_ImageURL = "http://www.biochar.org/joomla/images/stories/guardian%20logo.jpg"
+	    				var guardian_ImageURL = "http://www.greatertalent.com/wp-content/uploads/guardian-logo.jpg"
 					var guardian_webUrl = item.webUrl
 	
 					message =
@@ -656,6 +656,9 @@ function kittenMessage(recipientId, text) {
 
 				// send message list
             			sendMessage(recipientId, message_final);
+				sendMessage(recipientId, {text: 
+	"** The Guardian has a default news page so if you don't get articles in your category, try again!"
+				});
 				return true;
 
     			}
