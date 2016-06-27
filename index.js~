@@ -662,7 +662,7 @@ function kittenMessage(recipientId, text) {
 
 			// no results error
 			else {
-				sendMessage(event.sender.id, {text: 
+				sendMessage(recipientID, {text: 
 	"No results found. Make sure your category isn't misspelled and that your input is a valid category!"
 				});
 				return true;			
@@ -673,7 +673,7 @@ function kittenMessage(recipientId, text) {
 	
 	// incorrect format erorr
 	else {
-				sendMessage(event.sender.id, {text: 
+				sendMessage(recipientID, {text: 
 "Invalid search - make sure your message is in the format of: '<category> news'"
 				});
 				return true;	
