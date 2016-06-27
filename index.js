@@ -30,6 +30,9 @@ app.get('/webhook', function (req, res) {
     }
 });
 
+// check for rich message
+var called = false
+
 // handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
@@ -296,6 +299,8 @@ joke
 		// TODO: add "what should I do", "bored", "boring" suggester
 		// default response for unrecognized inputs
 		else {
+
+			if (!called) {
 			// array of facts
 			var arr = [ 'If you have 3 quarters, 4 dimes, and 4 pennies, you have $1.19. You also have the largest amount of money in coins without being able to make change for a dollar.',
   'The numbers \'172\' can be found on the back of the U.S. $5 dollar bill in the bushes at the base of the Lincoln Memorial.',
@@ -402,7 +407,7 @@ joke
 
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
 			sendMessage(event.sender.id, {text: "Since I don't want to leave you with nothing, did you know that: " + fact});
-
+		}
 		}
             } 	
         } else if (event.postback) {
@@ -600,6 +605,7 @@ function kittenMessage(recipientId, text) {
 
 	    if (values.length === 2 && values[1].toUpperCase() === 'NEWS') {
 
+		var called = true
 		var category = values[0]
 		var guardian_url = "http://content.guardianapis.com/search?q=" + category + "/politics&from-date=2016-01-01&api-key=1c9dab3d-d62d-48db-b7f2-3f614f487a00"
 

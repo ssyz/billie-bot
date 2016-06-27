@@ -30,6 +30,9 @@ app.get('/webhook', function (req, res) {
     }
 });
 
+// check for rich message
+var called = false
+
 // handler receiving messages
 app.post('/webhook', function (req, res) {
     var events = req.body.entry[0].messaging;
@@ -600,8 +603,7 @@ function kittenMessage(recipientId, text) {
 
 	    if (values.length === 2 && values[1].toUpperCase() === 'NEWS') {
 
-		return true
-
+		var called = true
 		var category = values[0]
 		var guardian_url = "http://content.guardianapis.com/search?q=" + category + "/politics&from-date=2016-01-01&api-key=1c9dab3d-d62d-48db-b7f2-3f614f487a00"
 
