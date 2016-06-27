@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'top rated movies' -> Bill-e lists the top rated movies according to different movie review sites\n'tell me a joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
+"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'top rated movies' -> Bill-e lists the 10 highest rated movies out now\n'tell me a joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
 			});
 		}
 		// curse response
@@ -548,15 +548,10 @@ function kittenMessage(recipientId, text) {
 	    			var tmdb_ImageURL = "https://image.tmdb.org/t/p/w370" + item.poster_path
 				var tmdb_webUrl = "https://www.themoviedb.org/discover/movie?language=en"
 	
-				message = {
-                		"attachment": {
-                    		"type": "template",
-                    		"payload": {
-                        		"template_type": "generic",
-                        		"elements": [
+				message =
 			    		{
                             		"title": tmdb_title,
-			    		"subtitle": "based on ratings from tmdb",
+			    		"subtitle": "from tmdb",
                             		"image_url": tmdb_ImageURL,
                             		"buttons": [
 						{
@@ -564,10 +559,6 @@ function kittenMessage(recipientId, text) {
                                 		"url": tmdb_webUrl,
                                 		"title": "More from tmdb"}]
                             		}
-					]
-                    		}	
-                		}
-            			};
 
 				// add each message to the array of movies
 				if (c <= 10) {
