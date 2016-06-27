@@ -599,7 +599,7 @@ function kittenMessage(recipientId, text) {
     // generate news based on category
     else if (text.toUpperCase().indexOf('NEWS') >= 0) {
 
-	    called = true
+	    // called = true
 
 	    // tokenize text
     	    text = text || "";
