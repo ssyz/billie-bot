@@ -621,7 +621,7 @@ function kittenMessage(recipientId, text) {
             				var guardian_title = item.webTitle
 	    				var guardian_date = item.webPublicationDate
 					guardian_date = guardian_date.substring(0, 10)
-	    				var guardian_ImageURL = "http://www.biochar.org/joomla/images/stories/guardian%20logo.jpg"
+	    				var guardian_ImageURL = "http://www.greatertalent.com/wp-content/uploads/guardian-logo.jpg"
 					var guardian_webUrl = item.webUrl
 	
 					message =
