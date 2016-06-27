@@ -617,7 +617,7 @@ function kittenMessage(recipientId, text) {
 				c = 1
 
 				// go through each JSON element and add the information to a new message
-				body.results.forEach(function(item) {
+				body.response.results.forEach(function(item) {
             				var guardian_title = item.webTitle
 	    				var guardian_date = item.webPublicationDate
 					guardian_date = guardian_date.substring(0, 10)
