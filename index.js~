@@ -633,7 +633,7 @@ function kittenMessage(recipientId, text) {
 							{
                                 			"type": "web_url",
                                 			"url": guardian_webUrl,
-                                			"title": "More from the Guardian"}]
+                                			"title": "Article link"}]
                             			}
 
 					// add each message to the array of articles
