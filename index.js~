@@ -402,6 +402,7 @@ joke
 
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
 			sendMessage(event.sender.id, {text: "Since I don't want to leave you with nothing, did you know that: " + fact});
+
 		}
             } 	
         } else if (event.postback) {
@@ -432,6 +433,8 @@ function sendMessage(recipientId, message) {
 
 // TODO: add API's to dod feed
 function kittenMessage(recipientId, text) {
+
+    // generate random daily deals
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 
 	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=50"
@@ -524,7 +527,7 @@ function kittenMessage(recipientId, text) {
             return true;
     }
 
-    // TODO: add more movies API's
+    // generate list of top 10 movies out now
     else if (text.toUpperCase().indexOf('MOVIE') >= 0) {
 
 	    var tmdb_url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7b97857087d9e02a9a3da1932781e9ac"
@@ -586,8 +589,88 @@ function kittenMessage(recipientId, text) {
 	    })
 
             return true;    }
+
+
+    // generate news based on category
+    else if (text.toUpperCase().indexOf('NEWS') >= 0) {
+
+	    // tokenize text
+    	    text = text || "";
+    	    var values = text.split(' ');
+
+	    if (values.length === 2 && values[1].toUpperCase() === 'NEWS') {
+
+		var category = values[0]
+		var guardian_url = "http://content.guardianapis.com/search?q=" + category + "/politics&from-date=2016-01-01&api-key=test"
+
+	    	// generate news articles from the Guardian
+	    	request({
+    			url: guardian_url,
+    			json: true
+	    	}, function (error, response, body) {
+
+   	    		if (!error && response.statusCode === 200) {
+			
+				// initialize array for articles list
+				elem = []
+				// initialize counter because max 10 items
+				c = 1
+
+				// go through each JSON element and add the information to a new message
+				body.results.forEach(function(item) {
+            				var guardian_title = item.webTitle
+	    				var guardian_date = item.webPublicationDate
+					guardian_date = guardian_date.substring(0, 10)
+	    				var guardian_ImageURL = "http://www.biochar.org/joomla/images/stories/guardian%20logo.jpg"
+					var guardian_webUrl = item.webUrl
+	
+					message =
+			    			{
+                            			"title": guardian_title,
+			    			"subtitle": "retrieved from the Guardian. Published: " + guardian_date,
+                            			"image_url": guardian_ImageURL,
+                            			"buttons": [
+							{
+                                			"type": "web_url",
+                                			"url": guardian_webUrl,
+                                			"title": "More from tmdb"}]
+                            			}
+
+					// add each message to the array of articles
+					if (c <= 10) {
+						elem.push(message)
+						c ++
+					}
+				})
+
+				// create message with multiple article elements
+				message_final = {
+                			"attachment": {
+                    			"type": "template",
+                    			"payload": {
+                        			"template_type": "generic",
+                        			"elements": elem
+                    			}	
+                			}
+            			};
+
+				// send message list
+            			sendMessage(recipientId, message_final);
+				return true;
+
+    			}
+
+			else {
+				sendMessage(event.sender.id, {text: 
+	"No results found. Make sure your category isn't misspelled and that your input is a valid category!"
+				});
+				return true;			
+			}
+
+	    	})
+	}
     
-    return false;
+    	return false;
 
 
 // example rich message
