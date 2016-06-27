@@ -431,9 +431,9 @@ function sendMessage(recipientId, message) {
     });
 };
 
-// TODO: add API's to dod feed
 function kittenMessage(recipientId, text) {
 
+    // TODO: add API's to dod feed
     // generate random daily deals
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 
@@ -668,6 +668,7 @@ function kittenMessage(recipientId, text) {
 			}
 
 	    	})
+	}
 	}
     
     	return false;
