@@ -40,7 +40,6 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             if (!kittenMessage(event.sender.id, event.message.text)) {
-		called = false
 		// introduction response
 		if (event.message.text.toUpperCase().indexOf('HI') == 0 
 		 || event.message.text.toUpperCase().indexOf('SUP') == 0 
@@ -667,6 +666,7 @@ function kittenMessage(recipientId, text) {
 				sendMessage(recipientId, {text: 
 	"** The Guardian has a default news page so if you don't get articles in your category, try again!"
 				});
+				called = false;
 				return true;
 
     			}
@@ -676,6 +676,7 @@ function kittenMessage(recipientId, text) {
 				sendMessage(recipientId, {text: 
 	"No results found. Make sure your category isn't misspelled and that your input is a valid category!"
 				});
+				called = false;
 				return true;			
 			}
 
@@ -687,6 +688,7 @@ function kittenMessage(recipientId, text) {
 				sendMessage(recipientId, {text: 
 "Invalid search - make sure your message is in the format of: '<category> news'"
 				});
+				called = false;
 				return true;	
 	}
 
