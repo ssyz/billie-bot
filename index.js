@@ -48,9 +48,29 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('HELLO') == 0 
 		 || event.message.text.toUpperCase().indexOf('HEY') == 0) {
 
+		// array of introductions
+		var intro = ['Hey there!', 'Hi!', 'Hello!', 'Hullo!']
+		var intro_msg = intro[Math.floor(Math.random()*intro.length)]
+
+		// array of examples
+		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",']
+		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
+
 		 sendMessage(event.sender.id, {text: 
-"Hey there! I am Bill-e, your online assistant. I can help you with common tasks - from finding the shopping deals to playing music. For example, type 'dod' (deals of the day) to see a list of great deals available today! You can also type 'help' for a list of all the commands. :)"
+intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg + " You can also type 'help' for a list of all the commands. :)"
 				});
+		}
+		// negation response
+		else if (event.message.text.toUpperCase().indexOf('DON\'T') >= 0
+		 || event.message.text.toUpperCase().indexOf('DIDN\'T') >= 0
+		 || event.message.text.toUpperCase().indexOf('NOT') >= 0
+		 || event.message.text.toUpperCase().indexOf('OPPOSITE') >= 0
+		 || event.message.text.toUpperCase().indexOf('NONE') >= 0
+		 || event.message.text.toUpperCase().indexOf('NEITHER') >= 0
+		 || event.message.text.toUpperCase().indexOf('NOTHING') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"HEY stop trying to trick me!"
+			});
 		}
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
@@ -276,18 +296,6 @@ joke
 		 || event.message.text.toUpperCase().indexOf('MEAN') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Wow that was mean..."
-			});
-		}
-		// confused response
-		else if (event.message.text.toUpperCase().indexOf('DON\'T') >= 0
-		 || event.message.text.toUpperCase().indexOf('DIDN\'T') >= 0
-		 || event.message.text.toUpperCase().indexOf('NOT') >= 0
-		 || event.message.text.toUpperCase().indexOf('OPPOSITE') >= 0
-		 || event.message.text.toUpperCase().indexOf('NONE') >= 0
-		 || event.message.text.toUpperCase().indexOf('NEITHER') >= 0
-		 || event.message.text.toUpperCase().indexOf('NOTHING') >= 0) {
-			sendMessage(event.sender.id, {text: 
-"HEY stop trying to trick me!"
 			});
 		}
 		// how response
