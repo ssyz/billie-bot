@@ -256,7 +256,8 @@ joke
 		 || event.message.text.toUpperCase().indexOf('SMART') >= 0
 		 || event.message.text.toUpperCase().indexOf('FUNNY') >= 0
 		 || event.message.text.toUpperCase().indexOf('BEST') >= 0
-		 || event.message.text.toUpperCase().indexOf('FRIEND') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('FRIEND') >= 0
+		 || event.message.text.toUpperCase().indexOf('COOL') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Thanks!! You're too kind :3"
 			});
@@ -271,9 +272,30 @@ joke
 		 || event.message.text.toUpperCase().indexOf('MORON') >= 0
 		 || event.message.text.toUpperCase().indexOf('IDIOTIC') >= 0
 		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0
-		 || event.message.text.toUpperCase().indexOf('HATE') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('HATE') >= 0
+		 || event.message.text.toUpperCase().indexOf('MEAN') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Wow that was mean..."
+			});
+		}
+		// confused response
+		else if (event.message.text.toUpperCase().indexOf('DON\'T') >= 0
+		 || event.message.text.toUpperCase().indexOf('DIDN\'T') >= 0
+		 || event.message.text.toUpperCase().indexOf('NOT') >= 0
+		 || event.message.text.toUpperCase().indexOf('OPPOSITE') >= 0
+		 || event.message.text.toUpperCase().indexOf('NONE') >= 0
+		 || event.message.text.toUpperCase().indexOf('NEITHER') >= 0
+		 || event.message.text.toUpperCase().indexOf('NOTHING') >= 0) {
+			sendMessage(event.sender.id, {text: 
+"HEY stop trying to trick me!"
+			});
+		}
+		// how response
+		else if (event.message.text.toUpperCase().indexOf("HOW DO") >= 0
+		      || event.message.text.toUpperCase().indexOf("WHAT IF") >= 0
+		      || event.message.text.toUpperCase().indexOf("CAN YOU") >= 0) {
+			sendMessage(event.sender.id, {text: 
+"Uhmmmmm not sure how to answer that, just ask your parents"
 			});
 		}
 		// age response
