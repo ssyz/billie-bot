@@ -46,7 +46,7 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('HEY') == 0) {
 
 		 sendMessage(event.sender.id, {text: 
-"Hey there! I am Bill-e, your personal, online assistant. I can help you with common tasks - from finding the shopping deals to playing music. For example, type 'dod' (deals of the day) to see a list of great deals available today! You can also type 'help' for a list of all the commands. :)"
+"Hey there! I am Bill-e, your online assistant. I can help you with common tasks - from finding the shopping deals to playing music. For example, type 'dod' (deals of the day) to see a list of great deals available today! You can also type 'help' for a list of all the commands. :)"
 				});
 		}
 		// help command
@@ -528,19 +528,25 @@ function kittenMessage(recipientId, text) {
 
 	    var tmdb_url = "https://api.themoviedb.org/3/discover/movie?sort_by=popularity.desc&api_key=7b97857087d9e02a9a3da1932781e9ac"
 
-	    // generate top rated movie from tmdb
+	    // generate list of movies from tmdb
 	    request({
     		url: tmdb_url,
     		json: true
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
-            		var tmdb_title = body.results[0].title
-	    		var tmdb_overview = body.results[0].overview
-	    		var tmdb_ImageURL = "https://image.tmdb.org/t/p/w370" + body.results[0].poster_path
-			var tmdb_webUrl = "https://www.themoviedb.org/discover/movie?language=en"
+			
+			// initialize array for movie list
+			elem = []
 
-			message = {
+			// go through each JSON element and add the information to a new message
+			body.results.forEach(function(item) {
+            			var tmdb_title = item.title
+	    			var tmdb_overview = item.overview
+	    			var tmdb_ImageURL = "https://image.tmdb.org/t/p/w370" + item.poster_path
+				var tmdb_webUrl = "https://www.themoviedb.org/discover/movie?language=en"
+	
+				message = {
                 		"attachment": {
                     		"type": "template",
                     		"payload": {
@@ -549,7 +555,7 @@ function kittenMessage(recipientId, text) {
 			    		{
                             		"title": tmdb_title,
 			    		"subtitle": "based on ratings from tmdb",
-                            		"image_url": tmdb_ImageURL ,
+                            		"image_url": tmdb_ImageURL,
                             		"buttons": [
 						{
                                 		"type": "web_url",
@@ -557,16 +563,32 @@ function kittenMessage(recipientId, text) {
                                 		"title": "More from tmdb"}]
                             		}
 					]
-                    			}	
+                    		}	
+                		}
+            			};
+
+				// add each message to the array of movies
+				elem.push(message)
+			})
+
+			// create message with multiple movie elements
+			message_final = {
+                		"attachment": {
+                    		"type": "template",
+                    		"payload": {
+                        		"template_type": "generic",
+                        		"elements": elem
+                    		}	
                 		}
             		};
-    
-            		sendMessage(recipientId, message);
+
+			// send message list
+            		sendMessage(recipientId, message_final);
+
     		}
 	    })
 
-            return true;
-    }
+            return true;    }
     
     return false;
 
