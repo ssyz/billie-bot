@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'top rated movies' -> Bill-e lists the 10 highest rated movies out now\n'tell me a joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
+"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands"
 			});
 		}
 		// curse response
@@ -267,7 +267,8 @@ joke
 		 || event.message.text.toUpperCase().indexOf('RETARD') >= 0
 		 || event.message.text.toUpperCase().indexOf('MORON') >= 0
 		 || event.message.text.toUpperCase().indexOf('IDIOTIC') >= 0
-		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0
+		 || event.message.text.toUpperCase().indexOf('HATE') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Wow that was mean..."
 			});
@@ -399,8 +400,9 @@ joke
 
 			var fact = arr[Math.floor(Math.random()*arr.length)]
 
-			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
 			sendMessage(event.sender.id, {text: "Since I don't want to leave you with nothing, did you know that: " + fact});
+			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
+
 		}
             } 	
         } else if (event.postback) {
