@@ -538,6 +538,8 @@ function kittenMessage(recipientId, text) {
 			
 			// initialize array for movie list
 			elem = []
+			// initialize counter because max 10 items
+			c = 1
 
 			// go through each JSON element and add the information to a new message
 			body.results.forEach(function(item) {
@@ -555,7 +557,7 @@ function kittenMessage(recipientId, text) {
 			    		{
                             		"title": tmdb_title,
 			    		"subtitle": "based on ratings from tmdb",
-                            		"image_url": tmdb_ImageURL ,
+                            		"image_url": tmdb_ImageURL,
                             		"buttons": [
 						{
                                 		"type": "web_url",
@@ -568,7 +570,10 @@ function kittenMessage(recipientId, text) {
             			};
 
 				// add each message to the array of movies
-				elem.push(message)
+				if (c <= 10) {
+					elem.push(message)
+					c ++
+				}
 			})
 
 			// create message with multiple movie elements
