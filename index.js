@@ -40,6 +40,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
             if (!kittenMessage(event.sender.id, event.message.text)) {
+		called = false
 		// introduction response
 		if (event.message.text.toUpperCase().indexOf('HI') == 0 
 		 || event.message.text.toUpperCase().indexOf('SUP') == 0 
@@ -596,10 +597,9 @@ function kittenMessage(recipientId, text) {
             return true;    }
 
 
+    // TODO: Add headline-of-the-day functionality
     // generate news based on category
     else if (text.toUpperCase().indexOf('NEWS') >= 0) {
-
-	    // called = true
 
 	    // tokenize text
     	    text = text || "";
@@ -734,7 +734,8 @@ function kittenMessage(recipientId, text) {
     return false;
 */
 
-
+// TODO: Create tutorial
+	// use buttons of text
 // TODO: Add simple music player
 	// use spotify API
 // TODO: Add calculator functionality
@@ -743,9 +744,8 @@ function kittenMessage(recipientId, text) {
 	// "remind me to: ___"
 // TODO: Add simple weather functionality
 	// "weather" -> return Poncho format
-// TODO: Add simple headline-of-the-day functionality
-	// "news"
-    
+  
+  
 };
 
 
