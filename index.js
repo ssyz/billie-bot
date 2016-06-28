@@ -47,7 +47,8 @@ app.post('/webhook', function (req, res) {
 		 || event.message.text.toUpperCase().indexOf('HOWDY') == 0 
 		 || event.message.text.toUpperCase().indexOf('GREETINGS') == 0 
 		 || event.message.text.toUpperCase().indexOf('HELLO') == 0 
-		 || event.message.text.toUpperCase().indexOf('HEY') == 0) {
+		 || event.message.text.toUpperCase().indexOf('HEY') == 0
+		 || event.message.text.toUpperCase().indexOf('HULLO') == 0) {
 
 		// array of introductions
 		var intro = ['Hey there!', 'Hi!', 'Hello!', 'Hullo!']
@@ -626,8 +627,6 @@ function kittenMessage(recipientId, text) {
 
             return true;    }
 
-
-    // TODO: add 'article summary' button for news items
     // generate news based on category
     else if (text.toUpperCase().indexOf('NEWS') >= 0) {
 
@@ -725,6 +724,7 @@ function kittenMessage(recipientId, text) {
 
 	}
 
+    // TODO: add 'article abstract' button -> postback?
     // get headlines
     else if (text.toUpperCase().indexOf('HEADLINES') >= 0
 	     || text.toUpperCase().indexOf('TOP STORIES') >= 0) {
@@ -753,6 +753,7 @@ function kittenMessage(recipientId, text) {
 					nytimes_date = nytimes_date.substring(0, 10)
 	    				var nytimes_ImageURL = "https://static01.nyt.com/images/icons/t_logo_291_black.png"
 					var nytimes_webUrl = item.url
+					var nytimes_abstract = item.abstract
 	
 					message =
 			    			{
@@ -763,7 +764,13 @@ function kittenMessage(recipientId, text) {
 							{
                                 			"type": "web_url",
                                 			"url": nytimes_webUrl,
-                                			"title": "Article link"}]
+                                			"title": "Article link"}, 
+							{
+                                			"type": "postback",
+                                			"title": "See abstract",
+                                			"payload": nytimes_abstract
+                            				}
+							]
                             			}
 
 					// add each message to the array of articles
