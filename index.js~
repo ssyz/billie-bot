@@ -444,7 +444,8 @@ joke
             } 	
         } else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
-		sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
+		var pb = JSON.stringify(event.postback).substring(12, JSON.stringify(event.postback).length - 2)
+		sendMessage(event.sender.id, {text: pb});
 	}
     }
     res.sendStatus(200);

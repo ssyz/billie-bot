@@ -444,7 +444,8 @@ joke
             } 	
         } else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
-		sendMessage(event.sender.id, {text: JSON.stringify(event.postback)});
+		var pb = JSON.stringify(event.postback).substring(12, JSON.stringify(event.postback).length - 2)
+		sendMessage(event.sender.id, {text: pb});
 	}
     }
     res.sendStatus(200);
