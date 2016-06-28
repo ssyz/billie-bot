@@ -455,11 +455,13 @@ joke
     		console.log("Postback received: " + JSON.stringify(event.postback));
 
 		if (isNews) {
-			// send the abstract
+			// separate abstract and url based on the period position
 			var period = j.indexOf(".")
 			var pb_abstract = j.substring(12, period + 1)
 			var pb_url = j.substring(period + 2, j.length - 2)
-			sendMessage(event.sender.id, {text: pb});
+
+			// abstract
+			sendMessage(event.sender.id, {text: pb_abstract});
 
 			// what next message
 			message = {
@@ -471,7 +473,7 @@ joke
                             		"buttons": [
 						{
                                 		"type": "web_url",
-                                		"url": nytimes_webUrl,
+                                		"url": pb_url,
                                 		"title": "Read full story"}, 
 						{
                                 		"type": "postback",
