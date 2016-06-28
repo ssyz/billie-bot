@@ -454,12 +454,11 @@ joke
         } else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
 
-/*
 		if (isNews) {
 			// separate abstract and url based on the period position
-			var period = j.indexOf(".")
-			var pb_abstract = j.substring(12, period + 1)
-			var pb_url = j.substring(period + 2, j.length - 2)
+			var period = JSON.stringify(event.postback).indexOf(".")
+			var pb_abstract = JSON.stringify(event.postback).substring(12, period + 1)
+			var pb_url = JSON.stringify(event.postback).substring(period + 2, JSON.stringify(event.postback).length - 2)
 
 			// abstract
 			sendMessage(event.sender.id, {text: pb_abstract});
@@ -487,7 +486,6 @@ joke
             		sendMessage(event.sender.id, message);
 
 		}
-*/
 	}
     }
     res.sendStatus(200);
