@@ -444,6 +444,7 @@ joke
             } 	
         } else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
+		sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
 	}
     }
     res.sendStatus(200);
@@ -768,7 +769,7 @@ function kittenMessage(recipientId, text) {
 							{
                                 			"type": "postback",
                                 			"title": "See abstract",
-                                			"payload": "User " + recipientId + " likes kitten " + imageUrl,
+                                			"payload": nytimes_abstract
                             				}
 							]
                             			}
