@@ -469,7 +469,7 @@ joke
                     		"type": "template",
                     		"payload": {
                         		"template_type": "button",
-                        		"text": "What do you want to do next?"
+                        		"text": "What do you want to do next?",
                             		"buttons": [
 						{
                                 		"type": "web_url",
@@ -481,7 +481,7 @@ joke
                                 		"payload": "Go back to the headlines"}]
                     			}	
                 		}
-            		};
+            		}
     
             		sendMessage(event.sender.id, message);
 

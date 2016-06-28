@@ -454,7 +454,6 @@ joke
         } else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
 
-/*
 		if (isNews) {
 			// separate abstract and url based on the period position
 			var period = JSON.stringify(event.postback).indexOf(".")
@@ -470,7 +469,7 @@ joke
                     		"type": "template",
                     		"payload": {
                         		"template_type": "button",
-                        		"text": "What do you want to do next?"
+                        		"text": "What do you want to do next?",
                             		"buttons": [
 						{
                                 		"type": "web_url",
@@ -487,7 +486,6 @@ joke
             		sendMessage(event.sender.id, message);
 
 		}
-*/
 	}
     }
     res.sendStatus(200);
