@@ -39,6 +39,7 @@ app.post('/webhook', function (req, res) {
     for (i = 0; i < events.length; i++) {
         var event = events[i];
         if (event.message && event.message.text) {
+	    // TODO: make more responses random
             if (!kittenMessage(event.sender.id, event.message.text)) {
 		// introduction response
 		if (event.message.text.toUpperCase().indexOf('HI') == 0 
@@ -53,7 +54,7 @@ app.post('/webhook', function (req, res) {
 		var intro_msg = intro[Math.floor(Math.random()*intro.length)]
 
 		// array of examples
-		var ex = ['"show me the dod",', '"what are the top rated movies?"', '"fashion news",', '"tell me a joke",']
+		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",']
 		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
 
 		 sendMessage(event.sender.id, {text: 
@@ -722,6 +723,72 @@ function kittenMessage(recipientId, text) {
 				return true;	
 	}
 
+	}
+
+    // get headlines
+    else if (text.toUpperCase().indexOf('HEADLINES') >= 0
+	     || text.toUpperCase().indexOf('TOP STORIES') >= 0) {
+
+		var nytimes_url = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=7aa4aeb3cde24bc9b3ee46569c9c1965"
+
+	    	// generate headlines from the NY Times
+	    	request({
+    			url: nytimes_url,
+    			json: true
+	    	}, function (error, response, body) {
+
+   	    		if (!error && response.statusCode === 200) {
+			
+				// initialize array for articles list
+				elem = []
+				// initialize counter because max 10 items
+				c = 1
+
+				// go through each JSON element and add the information to a new message
+				body.results.forEach(function(item) {
+            				var nytimes_title = item.title
+	    				var nytimes_date = item.published_date
+					nytimes_date = nytimes_date.substring(0, 10)
+	    				var nytimes_ImageURL = "https://static01.nyt.com/images/icons/t_logo_291_black.png"
+					var nytimes_webUrl = item.url
+	
+					message =
+			    			{
+                            			"title": nytimes_title,
+			    			"subtitle": "retrieved from The New York Times. Published: " + nytimes_date,
+                            			"image_url": nytimes_ImageURL,
+                            			"buttons": [
+							{
+                                			"type": "web_url",
+                                			"url": nytimes_webUrl,
+                                			"title": "Article link"}]
+                            			}
+
+					// add each message to the array of articles
+					if (c <= 10) {
+						elem.push(message)
+						c ++
+					}
+				})
+
+				// create message with multiple article elements
+				message_final = {
+                			"attachment": {
+                    			"type": "template",
+                    			"payload": {
+                        			"template_type": "generic",
+                        			"elements": elem
+                    			}	
+                			}
+            			};
+
+				// send message list
+            			sendMessage(recipientId, message_final);
+				called = false;
+				return true;
+
+    			}
+	    	})
 	}
     
     	return false;
