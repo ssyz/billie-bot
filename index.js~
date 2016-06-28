@@ -457,7 +457,7 @@ joke
 		if (isNews) {
 			// separate abstract and url based on the period position
 			var period = JSON.stringify(event.postback).indexOf(".")
-			var pb_abstract = JSON.stringify(event.postback).substring(12, period + 1)
+			// var pb_abstract = JSON.stringify(event.postback).substring(12, period + 1)
 			var pb_url = JSON.stringify(event.postback).substring(period + 2, JSON.stringify(event.postback).length - 2)
 
 			// abstract
@@ -469,16 +469,12 @@ joke
                     		"type": "template",
                     		"payload": {
                         		"template_type": "button",
-                        		"text": "What do you want to do next?",
+                        		"text": "Want to read more?",
                             		"buttons": [
 						{
                                 		"type": "web_url",
                                 		"url": pb_url,
-                                		"title": "Read full story"}, 
-						{
-                                		"type": "postback",
-                                		"title": "Go back to the headlines",
-                                		"payload": "Go back to the headlines"}]
+                                		"title": "Read full story"}]
                     			}	
                 		}
             		}

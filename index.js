@@ -469,16 +469,12 @@ joke
                     		"type": "template",
                     		"payload": {
                         		"template_type": "button",
-                        		"text": "What do you want to do next?",
+                        		"text": "Want to read more?",
                             		"buttons": [
 						{
                                 		"type": "web_url",
                                 		"url": pb_url,
-                                		"title": "Read full story"}, 
-						{
-                                		"type": "postback",
-                                		"title": "Top stories",
-                                		"payload": "Top stories"}]
+                                		"title": "Read full story"}]
                     			}	
                 		}
             		}
