@@ -66,7 +66,7 @@ app.post('/webhook', function (req, res) {
 		var intro_msg = intro[Math.floor(Math.random()*intro.length)]
 
 		// array of examples
-		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",', '"Top stories of the day",']
+		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",', '"Top stories of the day",', '"Workout playlist"']
 		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
 
 		 sendMessage(event.sender.id, {text: 
@@ -94,7 +94,7 @@ intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg
 "'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'headlines' -> Bill-e lists the top news stories of the day\n'joke' -> Bill-e tells you a random joke\n"
 			});
 			sendMessage(event.sender.id, {text: 
-"'<category> news' -> Bill-e lists 10 news articles in the category you chose\n'help' -> Bill-e lists the available commands"
+"'<category> news' -> Bill-e lists 10 news articles in the category you chose\n'help' -> Bill-e lists the available commands\n'<category> playlist' -> Bill-e lists 10 playlists from Spotify in the category you chose"
 			});
 		}
 		// curse response
