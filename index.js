@@ -54,7 +54,7 @@ app.post('/webhook', function (req, res) {
 		var intro_msg = intro[Math.floor(Math.random()*intro.length)]
 
 		// array of examples
-		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",']
+		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",', '"Top stories of the day",']
 		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
 
 		 sendMessage(event.sender.id, {text: 
@@ -76,7 +76,7 @@ intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands\n'<category> news' -> Bill-e lists 10 news articles in the category you chose"
+"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'headlines' -> Bill-e lists the top news stories of the day\n'joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands\n'<category> news' -> Bill-e lists 10 news articles in the category you chose"
 			});
 		}
 		// curse response
@@ -738,6 +738,8 @@ function kittenMessage(recipientId, text) {
 	    	}, function (error, response, body) {
 
    	    		if (!error && response.statusCode === 200) {
+
+				called = true
 			
 				// initialize array for articles list
 				elem = []
