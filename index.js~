@@ -62,7 +62,7 @@ app.post('/webhook', function (req, res) {
 		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
 
 		 sendMessage(event.sender.id, {text: 
-intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg + " You can also type 'help' for a list of all the commands. :)"
+intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg + " You can also type \"help\" for a list of all the commands. :)"
 				});
 		}
 		// negation response
@@ -80,7 +80,10 @@ intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg
 		// help command
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
-"Available commands:\n'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'headlines' -> Bill-e lists the top news stories of the day\n'joke' -> Bill-e tells you a random joke\n'help' -> Bill-e lists the available commands\n'<category> news' -> Bill-e lists 10 news articles in the category you chose"
+"'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'headlines' -> Bill-e lists the top news stories of the day\n'joke' -> Bill-e tells you a random joke\n"
+			});
+			sendMessage(event.sender.id, {text: 
+"'<category> news' -> Bill-e lists 10 news articles in the category you chose\n'help' -> Bill-e lists the available commands"
 			});
 		}
 		// curse response
@@ -741,6 +744,7 @@ function kittenMessage(recipientId, text) {
 		var nytimes_url = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=7aa4aeb3cde24bc9b3ee46569c9c1965"
 
 		called = true
+		isNews = true
 
 	    	// generate headlines from the NY Times
 	    	request({
