@@ -481,7 +481,7 @@ joke
                                 		"payload": "Go back to the headlines"}]
                     			}	
                 		}
-            		};
+            		}
     
             		sendMessage(event.sender.id, message);
 

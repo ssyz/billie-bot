@@ -477,8 +477,8 @@ joke
                                 		"title": "Read full story"}, 
 						{
                                 		"type": "postback",
-                                		"title": "Go back to the headlines",
-                                		"payload": "Go back to the headlines"}]
+                                		"title": "Top stories",
+                                		"payload": "Top stories"}]
                     			}	
                 		}
             		}
