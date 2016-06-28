@@ -78,6 +78,7 @@ intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg
 			});
 		}
 		// help command
+		// list only 4 commands per message so limit isn't exceeded
 		else if (event.message.text.toUpperCase() == "HELP") {
 			sendMessage(event.sender.id, {text: 
 "'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'headlines' -> Bill-e lists the top news stories of the day\n'joke' -> Bill-e tells you a random joke\n"
@@ -454,8 +455,36 @@ joke
     		console.log("Postback received: " + JSON.stringify(event.postback));
 
 		if (isNews) {
-			var pb = JSON.stringify(event.postback).substring(12, JSON.stringify(event.postback).length - 2)
-			sendMessage(event.sender.id, {text: pb});
+			// separate abstract and url based on the period position
+			var period = j.indexOf(".")
+			var pb_abstract = j.substring(12, period + 1)
+			var pb_url = j.substring(period + 2, j.length - 2)
+
+			// abstract
+			sendMessage(event.sender.id, {text: pb_abstract});
+
+			// what next message
+			message = {
+                		"attachment": {
+                    		"type": "template",
+                    		"payload": {
+                        		"template_type": "button",
+                        		"text": "What do you want to do next?"
+                            		"buttons": [
+						{
+                                		"type": "web_url",
+                                		"url": pb_url,
+                                		"title": "Read full story"}, 
+						{
+                                		"type": "postback",
+                                		"title": "Go back to the headlines",
+                                		"payload": "Go back to the headlines"}]
+                    			}	
+                		}
+            		};
+    
+            		sendMessage(event.sender.id, message);
+
 		}
 	}
     }
@@ -781,7 +810,7 @@ function kittenMessage(recipientId, text) {
 							{
                                 			"type": "postback",
                                 			"title": "See abstract",
-                                			"payload": nytimes_abstract
+                                			"payload": nytimes_abstract + " " + item.url
                             				}
 							]
                             			}
