@@ -54,7 +54,7 @@ app.post('/webhook', function (req, res) {
 		var intro_msg = intro[Math.floor(Math.random()*intro.length)]
 
 		// array of examples
-		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",']
+		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",', '"Top stories of the day",']
 		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
 
 		 sendMessage(event.sender.id, {text: 
@@ -627,7 +627,7 @@ function kittenMessage(recipientId, text) {
             return true;    }
 
 
-    // TODO: Add headline-of-the-day functionality
+    // TODO: add 'article summary' button for news items
     // generate news based on category
     else if (text.toUpperCase().indexOf('NEWS') >= 0) {
 
@@ -737,9 +737,9 @@ function kittenMessage(recipientId, text) {
     			json: true
 	    	}, function (error, response, body) {
 
-   	    		if (!error && response.statusCode === 200) {
+			called = true
 
-				called = true
+   	    		if (!error && response.statusCode === 200) {
 			
 				// initialize array for articles list
 				elem = []

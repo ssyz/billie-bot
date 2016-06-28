@@ -627,7 +627,7 @@ function kittenMessage(recipientId, text) {
             return true;    }
 
 
-    // TODO: Add headline-of-the-day functionality
+    // TODO: add 'article summary' button for news items
     // generate news based on category
     else if (text.toUpperCase().indexOf('NEWS') >= 0) {
 
@@ -731,6 +731,8 @@ function kittenMessage(recipientId, text) {
 
 		var nytimes_url = "https://api.nytimes.com/svc/topstories/v2/home.json?api-key=7aa4aeb3cde24bc9b3ee46569c9c1965"
 
+		called = true
+
 	    	// generate headlines from the NY Times
 	    	request({
     			url: nytimes_url,
@@ -738,8 +740,6 @@ function kittenMessage(recipientId, text) {
 	    	}, function (error, response, body) {
 
    	    		if (!error && response.statusCode === 200) {
-
-				called = true
 			
 				// initialize array for articles list
 				elem = []
