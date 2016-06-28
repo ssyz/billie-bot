@@ -12,6 +12,13 @@ var request = require('request');
 var fs = require('fs');
 var app = express();
 
+// Spotify integration
+var SpotifyWebApi = require('spotify-web-api-node');
+var spotifyApi = new SpotifyWebApi({
+  clientId : '036a8229bc0a4171aae8a6d5dfdcf631',
+  clientSecret : '14eea4ca80a943e5a23a994930de3a3e'
+});
+
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 app.listen((process.env.PORT || 3000));
@@ -852,6 +859,85 @@ function kittenMessage(recipientId, text) {
     			}
 	    	})
 	}
+
+    // give Spotify links based on input
+	// format 1: play <track> by <artist>
+	// format 2: <category> playlist
+    else if (text.toUpperCase().indexOf('PLAY') >= 0) {
+
+	    // tokenize text
+    	    text = text || "";
+    	    var values = text.split(' ');
+
+	    if (values.length === 2 && values[1].toUpperCase() === 'PLAYLIST') {
+
+		called = true
+		var category = values[0]
+
+		// Search playlists whose name or description contains the inputted category
+		spotifyApi.searchPlaylists(category)
+  		.then(function(data) {
+		
+		elem = []
+		c = 1		
+
+    		data.body.playlists.items.forEach(function(item) {
+			var s_song_name = item.name
+			var s_song_image = item.images[0].url
+			var s_song_external = item.external_urls.spotify
+
+			message =
+			   	{
+                            	"title": s_song_name,
+			    	"subtitle": "retrieved from Spotify",
+                            	"image_url": s_song_image,
+                            	"buttons": [
+					{
+                                	"type": "web_url",
+                                	"url": s_song_external,
+                                	"title": "Listen now!"}]
+                            	}
+
+			// add each message to the array of playlists
+			if (c <= 10) {
+				elem.push(message)
+				c ++
+			}
+
+   		 })
+
+		// create message with multiple playlists
+		message_final = {
+                	"attachment": {
+                   	"type": "template",
+                    	"payload": {
+                        	"template_type": "generic",
+                        	"elements": elem
+                    	}	
+                	}
+            	};
+
+		// send message list
+            	sendMessage(recipientId, message_final);
+		called = false;
+		return true;
+
+  		}, function(err) {
+    		console.log('Something went wrong!-------------------', err);
+  		});
+	}
+	
+	// incorrect format erorr
+	else {
+				sendMessage(recipientId, {text: 
+"Invalid search - make sure your message looks like:\n<category> playlist for a playlist\nplay <track> by <artist> for a specific song"
+				});
+				called = false;
+				return true;	
+	}
+
+	}
+
     
     	return false;
 
