@@ -94,7 +94,10 @@ intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg
 "'dod' -> Bill-e lists random shopping deals of the day\n'movies' -> Bill-e lists the 10 highest rated movies out now\n'headlines' -> Bill-e lists the top news stories of the day\n'joke' -> Bill-e tells you a random joke\n"
 			});
 			sendMessage(event.sender.id, {text: 
-"'<category> news' -> Bill-e lists 10 news articles in the category you chose\n'help' -> Bill-e lists the available commands\n'<category> playlist' -> Bill-e lists 10 playlists from Spotify in the category you chose"
+"'<category> news' -> Bill-e lists 10 news articles in the category you chose\n'help' -> Bill-e lists the available commands\n'<category> playlist' -> Bill-e lists 10 playlists from Spotify in the category you chose\n"
+			});
+			sendMessage(event.sender.id, {text: 
+"'play <song title> -- <artist>' -> Bill-e lists results for your song search"
 			});
 		}
 		// curse response
@@ -861,7 +864,7 @@ function kittenMessage(recipientId, text) {
 	}
 
     // give Spotify links based on input
-	// format 1: play <track> by <artist>
+	// format 1: play <track> -- <artist>
 	// format 2: <category> playlist
     else if (text.toUpperCase().indexOf('PLAY') >= 0) {
 
@@ -869,6 +872,7 @@ function kittenMessage(recipientId, text) {
     	    text = text || "";
     	    var values = text.split(' ');
 
+	    // generate playlist based on category
 	    if (values.length === 2 && values[1].toUpperCase() === 'PLAYLIST') {
 
 		called = true
@@ -926,6 +930,85 @@ function kittenMessage(recipientId, text) {
     		console.log('Something went wrong!-------------------', err);
   		});
 	}
+
+	    // song lookup
+	    else if (values.length >= 4 && values[0].toUpperCase() === 'PLAY' && values.indexOf('--') >= 2) {
+
+		called = true
+
+		// get title and artist from string
+		var by_pos = values.indexOf('--')
+		var track = ""
+
+		for (c = 1; c < by_pos; c ++) {
+			track = track + values[c] + " "
+		}
+
+		var artist = ""
+
+		for (c = by_pos + 1; c < values.length; c ++) {
+			artist = artist + values[c] + " "
+		}
+
+		// Search for song
+		spotifyApi.searchTracks('track:' + track + ' artist:' + artist)
+  		.then(function(data) {
+		
+		elem = []
+		c = 1		
+
+    		data.body.tracks.items.forEach(function(item) {
+			var s_song_name = item.name
+			var s_song_image = item.album.images[1].url
+			var s_song_artist = item.artists[0].name
+			var s_song_preview = item.preview_url
+			var s_song_external = item.external_urls.spotify
+
+			message =
+			   	{
+                            	"title": s_song_name,
+			    	"subtitle": "song by: " + s_song_artist,
+                            	"image_url": s_song_image,
+                            	"buttons": [
+					{
+                                	"type": "web_url",
+                                	"url": s_song_preview,
+                                	"title": "Listen to a preview"},
+					{
+                                	"type": "web_url",
+                                	"url": s_song_external,
+                                	"title": "Listen now!"}]
+                            	}
+
+			// add each message to the array of playlists
+			if (c <= 10) {
+				elem.push(message)
+				c ++
+			}
+
+   		 })
+
+		// create message with multiple playlists
+		message_final = {
+                	"attachment": {
+                   	"type": "template",
+                    	"payload": {
+                        	"template_type": "generic",
+                        	"elements": elem
+                    	}	
+                	}
+            	};
+
+		// send message list
+            	sendMessage(recipientId, message_final);
+		called = false;
+		return true;
+
+  		}, function(err) {
+    		console.log('Something went wrong!-------------------', err);
+  		});
+	}
+	
 	
 	// incorrect format erorr
 	else {
