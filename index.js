@@ -43,6 +43,7 @@ app.post('/webhook', function (req, res) {
         var event = events[i];
         if (event.message && event.message.text) {
 	    // TODO: make more responses random
+	    // TODO: check for negation in each thing
             if (!kittenMessage(event.sender.id, event.message.text)) {
 		// introduction response
 		if (event.message.text.toUpperCase().indexOf('HI') == 0 
@@ -65,6 +66,7 @@ app.post('/webhook', function (req, res) {
 intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg + " You can also type \"help\" for a list of all the commands. :)"
 				});
 		}
+		/*
 		// negation response
 		else if (event.message.text.toUpperCase().indexOf('DON\'T') >= 0
 		 || event.message.text.toUpperCase().indexOf('DIDN\'T') >= 0
@@ -77,6 +79,7 @@ intro_msg + " I am Bill-e, your online assistant. Try something like: " + ex_msg
 "HEY stop trying to trick me!"
 			});
 		}
+		*/
 		// help command
 		// list only 4 commands per message so limit isn't exceeded
 		else if (event.message.text.toUpperCase() == "HELP") {
@@ -304,7 +307,8 @@ joke
 		 || event.message.text.toUpperCase().indexOf('IDIOTIC') >= 0
 		 || event.message.text.toUpperCase().indexOf('SUCK') >= 0
 		 || event.message.text.toUpperCase().indexOf('HATE') >= 0
-		 || event.message.text.toUpperCase().indexOf('MEAN') >= 0) {
+		 || event.message.text.toUpperCase().indexOf('MEAN') >= 0
+		 || event.message.text.toUpperCase().indexOf('SUX') >= 0) {
 			sendMessage(event.sender.id, {text: 
 "Wow that was mean..."
 			});
@@ -451,7 +455,9 @@ joke
 		}
 		}
             } 	
-        } else if (event.postback) {
+        } 
+	// postback handler
+	else if (event.postback) {
     		console.log("Postback received: " + JSON.stringify(event.postback));
 
 		if (isNews) {
@@ -469,18 +475,27 @@ joke
                     		"type": "template",
                     		"payload": {
                         		"template_type": "button",
-                        		"text": "Want to read more?",
+                        		"text": "What next?",
                             		"buttons": [
 						{
                                 		"type": "web_url",
                                 		"url": pb_url,
-                                		"title": "Read full story"}]
+                                		"title": "Read full story"},
+						{
+                                		"type": "postback",
+                                		"title": "Top stories",
+                                		"payload": "Top stories"}]
                     			}	
                 		}
             		}
     
             		sendMessage(event.sender.id, message);
+			isNews = false;
 
+		}
+		// return to top stories
+		else if (JSON.stringify(event.postback) == '{"payload":"Top stories"}') {
+			kittenMessage(event.sender.id, "Top stories")
 		}
 	}
     }
