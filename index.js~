@@ -643,10 +643,26 @@ function kittenMessage(recipientId, text) {
 			
 			// initialize array for movie list
 			elem = []
-			// initialize counter because max 10 items
-			c = 1
 
 			// go through each JSON element and add the information to a new message
+			for (c = 0; c < 10; c ++) {
+				var tmdb_title = body.results[c].title
+	    			var tmdb_overview = body.results[c].overview
+	    			var tmdb_ImageURL = "https://image.tmdb.org/t/p/w370" + body.results[c].poster_path
+				var tmdb_webUrl = "https://www.themoviedb.org/discover/movie?language=en"
+	
+				message =
+			    		{
+                            		"title": tmdb_title,
+			    		"subtitle": "based on reviews from tmdb",
+                            		"image_url": tmdb_ImageURL,
+                            		"buttons": [
+						{
+                                		"type": "web_url",
+                                		"url": tmdb_webUrl,
+                                		"title": "More from tmdb"}]
+                            		}
+			}
 			body.results.forEach(function(item) {
             			var tmdb_title = item.title
 	    			var tmdb_overview = item.overview
@@ -871,8 +887,6 @@ function kittenMessage(recipientId, text) {
 	// TODO: format 4: play songs by <artist>
 	// TODO: format 5: play new songs
 	// TODO: format 6: play featured songs
-
-    // TODO: check for no results
     else if (text.toUpperCase().indexOf('PLAY') >= 0) {
 
 	    // tokenize text
@@ -937,7 +951,7 @@ function kittenMessage(recipientId, text) {
 		} else {
 			// send no results message
             		sendMessage(recipientId, {text: 
-	"No results found. Make sure your category input isn't misspelled and that the category exists!"
+	"Oops! No results found, make sure your category input isn't misspelled and that the category exists."
 				});
 			called = false;
 			return true;			
@@ -1024,7 +1038,7 @@ function kittenMessage(recipientId, text) {
 		} else {
 			// send no results message
             		sendMessage(recipientId, {text: 
-	"No results found. Make sure your category input isn't misspelled and that the category exists!"
+	"Oops! No results found, make sure your search terms aren't misspelled and that the song exists."
 				});
 			called = false;
 			return true;			
