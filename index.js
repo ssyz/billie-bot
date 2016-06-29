@@ -935,14 +935,14 @@ function kittenMessage(recipientId, text) {
 		var by_pos = values.indexOf('--')
 		var track = ""
 
-		for (c = 1; c < by_pos; c ++) {
-			track = track + values[c] + " "
+		for (a = 1; a < by_pos; a ++) {
+			track = track + values[a] + " "
 		}
 
 		var artist = ""
 
-		for (c = by_pos + 1; c < values.length; c ++) {
-			artist = artist + values[c] + " "
+		for (b = by_pos + 1; b < values.length; b ++) {
+			artist = artist + values[b] + " "
 		}
 
 		// Search for song
