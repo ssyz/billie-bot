@@ -558,30 +558,22 @@ function kittenMessage(recipientId, text) {
 	    			var ebay_ImageURL = body.entry[x].ImageURL
 				var ebay_webUrl = "http://deals.ebay.com/"
 
-				message = {
-                			"attachment": {
-                    			"type": "template",
-                    			"payload": {
-                        			"template_type": "generic",
-                        			"elements": [
-			    			{
-                            			"title": ebay_title,
-			    			"subtitle": "provided by ebay",
-                            			"image_url": ebay_ImageURL ,
-                            			"buttons": [
-							{
-                                			"type": "web_url",
-                                			"url": ebay_DealURL,
-                                			"title": "Show details"}, 
-							{
-                                			"type": "web_url",
-                                			"url": ebay_webUrl,
-                                			"title": "More from ebay"}]
-                            			}
-						]
-                    				}	
-                			}
-            			};
+				message = 
+			    		{
+                            		"title": ebay_title,
+			    		"subtitle": "provided by ebay",
+                            		"image_url": ebay_ImageURL ,
+                            		"buttons": [
+						{
+                                		"type": "web_url",
+                                		"url": ebay_DealURL,
+                                		"title": "Show details"}, 
+						{
+                                		"type": "web_url",
+                                		"url": ebay_webUrl,
+                                		"title": "More from ebay"}]
+                            		}
+						
 
             			ebay_elem.push(message);
 		    }

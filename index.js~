@@ -541,7 +541,7 @@ function kittenMessage(recipientId, text) {
 
 	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=50"
 	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
-	    elem = []
+	    ebay_elem = []
 
 	    // generate random daily deal from ebay
 	    request({
@@ -583,22 +583,22 @@ function kittenMessage(recipientId, text) {
                 			}
             			};
 
-            			elem.push(message);
+            			ebay_elem.push(message);
 		    }
 
 		    // create message with multiple movie elements
-			message_final = {
+			ebay_message_final = {
                 		"attachment": {
                     		"type": "template",
                     		"payload": {
                         		"template_type": "generic",
-                        		"elements": elem
+                        		"elements": ebay_elem
                     		}	
                 		}
             		};
 
 		    // send message list
-            	    sendMessage(recipientId, message_final);
+            	    sendMessage(recipientId, ebay_message_final);
 
     		}
 	    })
