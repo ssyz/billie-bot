@@ -949,14 +949,15 @@ function kittenMessage(recipientId, text) {
 		spotifyApi.searchTracks('track:' + track + ' artist:' + artist)
   		.then(function(data) {
 		
-		elem = []
+		elem = [];
+		c = 1;
 
-		for (c = 0; c < 10; c ++) {
-			var s_song_name = data.body.tracks.items[c].name
-			var s_song_image = data.body.tracks.items[c].album.images[1].url
-			var s_song_artist = data.body.tracks.items[c].artists[0].name
-			var s_song_preview = data.body.tracks.items[c].preview_url
-			var s_song_external = data.body.tracks.items[c].external_urls.spotify
+		data.body.tracks.items.forEach(function(item) {
+			var s_song_name = item.name
+			var s_song_image = item.album.images[1].url
+			var s_song_artist = item.artists[0].name
+			var s_song_preview = item.preview_url
+			var s_song_external = item.external_urls.spotify
 
 			message =
 			   	{
@@ -975,8 +976,12 @@ function kittenMessage(recipientId, text) {
                             	}
 
 			// add each message to the array of songs
-			elem.push(message)
-   		 }
+			if (c <= 10) {
+				elem.push(message)
+				c ++
+			}
+			
+   		 })
 
 		if (elem.length > 0) {
 			// create message with multiple songs
