@@ -67,7 +67,7 @@ app.post('/webhook', function (req, res) {
 		var intro_msg = intro[Math.floor(Math.random()*intro.length)]
 
 		// array of examples
-		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",', '"Top stories of the day",', '"Workout playlist"', '"Play Hello by Adele"']
+		var ex = ['"Show me the dod",', '"What are the top rated movies?"', '"Fashion news",', '"Tell me a joke",', '"Top stories of the day",', '"Workout playlist"', '"Play Hello -- Adele"']
 		var ex_msg = ex[Math.floor(Math.random()*ex.length)]
 
 		 sendMessage(event.sender.id, {text: 
@@ -543,7 +543,7 @@ function kittenMessage(recipientId, text) {
 	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
 	    ebay_elem = []
 
-	    // generate random daily deal from ebay
+	    // generate top daily deals from ebay
 	    request({
     		url: ebay_url,
     		json: true
@@ -552,7 +552,6 @@ function kittenMessage(recipientId, text) {
    	    	if (!error && response.statusCode === 200) {
 
 			for (x = 0; x < 10; x ++) {
-				// var msg = body.entry[x][Math.floor(Math.random()*body.entry.length)]
             			var ebay_title = body.entry[x].title
 	    			var ebay_DealURL = body.entry[x].DealURL
 	    			var ebay_ImageURL = body.entry[x].ImageURL
@@ -578,7 +577,7 @@ function kittenMessage(recipientId, text) {
             			ebay_elem.push(message);
 		    }
 
-		    // create message with multiple movie elements
+		    // create message with multiple ebay deals
 			ebay_message_final = {
                 		"attachment": {
                     		"type": "template",
@@ -589,31 +588,29 @@ function kittenMessage(recipientId, text) {
                 		}
             		};
 
-		    // send message list
+		    // send deals list
             	    sendMessage(recipientId, ebay_message_final);
 
     		}
 	    })
 
-	    // generate random daily deal from gilt
+	    gilt_elem = []
+
+	    // generate top daily deals from gilt
 	    request({
     		url: gilt_url,
     		json: true
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
-            		var msg = body.sales[Math.floor(Math.random()*body.sales.length)]
-			var gilt_title = msg.name
-			var gilt_DealURL = msg.sale_url
-			var gilt_ImageURL = "http://www.trademarkologist.com/files/2014/10/Gilt.jpg"
-			var gilt_webURL = "http://www.gilt.com/sale/women"
+			for (y = 0; y < 10; y ++) {
+            			// var msg = body.sales[y][Math.floor(Math.random()*body.sales.length)]
+				var gilt_title = body.sales[y].name
+				var gilt_DealURL = body.sales[y].sale_url
+				var gilt_ImageURL = "http://www.trademarkologist.com/files/2014/10/Gilt.jpg"
+				var gilt_webURL = "http://www.gilt.com/sale/women"
 
-			message = {
-                		"attachment": {
-                    		"type": "template",
-                    		"payload": {
-                        		"template_type": "generic",
-                        		"elements": [
+				message =
 			    		{
                             		"title": gilt_title,
 			    		"subtitle": "provided by gilt",
@@ -628,12 +625,24 @@ function kittenMessage(recipientId, text) {
                                 		"url": gilt_webURL,
                                 		"title": "More from gilt"}]
                             		}
-					]
-                    			}	
+    
+            		gilt_elem.push(message)
+			}
+
+		    	// create message with multiple gilt deals
+			gilt_message_final = {
+                		"attachment": {
+                    		"type": "template",
+                    		"payload": {
+                        		"template_type": "generic",
+                        		"elements": gilt_elem
+                    		}	
                 		}
             		};
-    
-            		sendMessage(recipientId, message);
+
+		    	// send deals list
+            	    	sendMessage(recipientId, gilt_message_final);
+
     		}
 	    })
 
