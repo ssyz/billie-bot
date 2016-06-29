@@ -52,7 +52,7 @@ app.post('/webhook', function (req, res) {
 	    // TODO: make more responses random
 	    // TODO: check for negation in each thing
 	    // TODO: make sure the words are by themselves
-            if (!kittenMessage(event.sender.id, event.message.text)) {
+            if (!kittenMessage(event.sender.id, event.message.text) && !called) {
 		// introduction response
 		if (event.message.text.toUpperCase().indexOf('HI') == 0 
 		 || event.message.text.toUpperCase().indexOf('SUP') == 0 
@@ -356,7 +356,7 @@ joke
 		// default response for unrecognized inputs
 		else {
 
-			if (!called) {
+			// if (!called) {
 			// array of facts
 			var arr = [ 'If you have 3 quarters, 4 dimes, and 4 pennies, you have $1.19. You also have the largest amount of money in coins without being able to make change for a dollar.',
   'The numbers \'172\' can be found on the back of the U.S. $5 dollar bill in the bushes at the base of the Lincoln Memorial.',
@@ -464,7 +464,7 @@ joke
 			sendMessage(event.sender.id, {text: "Sorry, I didn't understand that... I can't undertand abbreviation, slang, misspelled words, etc. Otherwise, type 'help' for a list of commands."});
 			sendMessage(event.sender.id, {text: "Since I don't want to leave you with nothing, did you know that: " + fact});
 		}
-		}
+		// }
             } 	
         } 
 	// postback handler

@@ -543,7 +543,7 @@ function kittenMessage(recipientId, text) {
 	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
 	    ebay_elem = []
 
-	    // generate random daily deal from ebay
+	    // generate top daily deals from ebay
 	    request({
     		url: ebay_url,
     		json: true
@@ -577,7 +577,7 @@ function kittenMessage(recipientId, text) {
             			ebay_elem.push(message);
 		    }
 
-		    // create message with multiple movie elements
+		    // create message with multiple ebay deals
 			ebay_message_final = {
                 		"attachment": {
                     		"type": "template",
@@ -588,7 +588,7 @@ function kittenMessage(recipientId, text) {
                 		}
             		};
 
-		    // send message list
+		    // send deals list
             	    sendMessage(recipientId, ebay_message_final);
 
     		}
@@ -596,7 +596,7 @@ function kittenMessage(recipientId, text) {
 
 	    gilt_elem = []
 
-	    // generate random daily deal from gilt
+	    // generate top daily deals from gilt
 	    request({
     		url: gilt_url,
     		json: true
@@ -629,7 +629,7 @@ function kittenMessage(recipientId, text) {
             		gilt_elem.push(message)
 			}
 
-		    	// create message with multiple movie elements
+		    	// create message with multiple gilt deals
 			gilt_message_final = {
                 		"attachment": {
                     		"type": "template",
@@ -640,7 +640,7 @@ function kittenMessage(recipientId, text) {
                 		}
             		};
 
-		    	// send message list
+		    	// send deals list
             	    	sendMessage(recipientId, gilt_message_final);
 
     		}
