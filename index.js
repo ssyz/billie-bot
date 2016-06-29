@@ -662,6 +662,9 @@ function kittenMessage(recipientId, text) {
                                 		"url": tmdb_webUrl,
                                 		"title": "More from tmdb"}]
                             		}
+
+				elem.push(message)
+
 			}
 /*
 			body.results.forEach(function(item) {

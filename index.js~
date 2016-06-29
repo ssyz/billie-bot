@@ -663,6 +663,7 @@ function kittenMessage(recipientId, text) {
                                 		"title": "More from tmdb"}]
                             		}
 			}
+/*
 			body.results.forEach(function(item) {
             			var tmdb_title = item.title
 	    			var tmdb_overview = item.overview
@@ -687,6 +688,7 @@ function kittenMessage(recipientId, text) {
 					c ++
 				}
 			})
+*/
 
 			// create message with multiple movie elements
 			message_final = {
