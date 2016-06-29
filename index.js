@@ -666,32 +666,6 @@ function kittenMessage(recipientId, text) {
 				elem.push(message)
 
 			}
-/*
-			body.results.forEach(function(item) {
-            			var tmdb_title = item.title
-	    			var tmdb_overview = item.overview
-	    			var tmdb_ImageURL = "https://image.tmdb.org/t/p/w370" + item.poster_path
-				var tmdb_webUrl = "https://www.themoviedb.org/discover/movie?language=en"
-	
-				message =
-			    		{
-                            		"title": tmdb_title,
-			    		"subtitle": "based on reviews from tmdb",
-                            		"image_url": tmdb_ImageURL,
-                            		"buttons": [
-						{
-                                		"type": "web_url",
-                                		"url": tmdb_webUrl,
-                                		"title": "More from tmdb"}]
-                            		}
-
-				// add each message to the array of movies
-				if (c <= 10) {
-					elem.push(message)
-					c ++
-				}
-			})
-*/
 
 			// create message with multiple movie elements
 			message_final = {
@@ -735,16 +709,14 @@ function kittenMessage(recipientId, text) {
 			
 				// initialize array for articles list
 				elem = []
-				// initialize counter because max 10 items
-				c = 1
 
 				// go through each JSON element and add the information to a new message
-				body.response.results.forEach(function(item) {
-            				var guardian_title = item.webTitle
-	    				var guardian_date = item.webPublicationDate
+				for (c = 0; c < 10; c ++) {
+            				var guardian_title = body.response.results[c].webTitle
+	    				var guardian_date = body.response.results[c].webPublicationDate
 					guardian_date = guardian_date.substring(0, 10)
 	    				var guardian_ImageURL = "http://www.greatertalent.com/wp-content/uploads/guardian-logo.jpg"
-					var guardian_webUrl = item.webUrl
+					var guardian_webUrl = body.response.results[c].webUrl
 	
 					message =
 			    			{
@@ -759,11 +731,8 @@ function kittenMessage(recipientId, text) {
                             			}
 
 					// add each message to the array of articles
-					if (c <= 10) {
-						elem.push(message)
-						c ++
-					}
-				})
+					elem.push(message)
+				}
 
 				// create message with multiple article elements
 				message_final = {
@@ -828,17 +797,15 @@ function kittenMessage(recipientId, text) {
 			
 				// initialize array for articles list
 				elem = []
-				// initialize counter because max 10 items
-				c = 1
 
 				// go through each JSON element and add the information to a new message
-				body.results.forEach(function(item) {
-            				var nytimes_title = item.title
-	    				var nytimes_date = item.published_date
+				for (c = 0; c < 10; c ++) {
+            				var nytimes_title = body.results[c].title
+	    				var nytimes_date = body.results[c].published_date
 					nytimes_date = nytimes_date.substring(0, 10)
 	    				var nytimes_ImageURL = "https://static01.nyt.com/images/icons/t_logo_291_black.png"
-					var nytimes_webUrl = item.url
-					var nytimes_abstract = item.abstract
+					var nytimes_webUrl = body.results[c].url
+					var nytimes_abstract = body.results[c].abstract
 	
 					message =
 			    			{
@@ -853,17 +820,14 @@ function kittenMessage(recipientId, text) {
 							{
                                 			"type": "postback",
                                 			"title": "See abstract",
-                                			"payload": nytimes_abstract + " " + item.url
+                                			"payload": nytimes_abstract + " " + nytimes_webUrl
                             				}
 							]
                             			}
 
 					// add each message to the array of articles
-					if (c <= 10) {
-						elem.push(message)
-						c ++
-					}
-				})
+					elem.push(message)
+				}
 
 				// create message with multiple article elements
 				message_final = {
@@ -909,12 +873,11 @@ function kittenMessage(recipientId, text) {
   		.then(function(data) {
 		
 		elem = []
-		c = 1		
 
-    		data.body.playlists.items.forEach(function(item) {
-			var s_song_name = item.name
-			var s_song_image = item.images[0].url
-			var s_song_external = item.external_urls.spotify
+		for (c = 0; c < 10; c ++) {
+			var s_song_name = data.body.playlists.items[c].name
+			var s_song_image = data.body.playlists.items[c].images[0].url
+			var s_song_external = data.body.playlists.items[c].external_urls.spotify
 
 			message =
 			   	{
@@ -929,12 +892,8 @@ function kittenMessage(recipientId, text) {
                             	}
 
 			// add each message to the array of playlists
-			if (c <= 10) {
-				elem.push(message)
-				c ++
-			}
-
-   		 })
+			elem.push(message)
+   		 }
 
 		if (elem.length > 0) {
 			// create message with multiple playlists
@@ -991,14 +950,13 @@ function kittenMessage(recipientId, text) {
   		.then(function(data) {
 		
 		elem = []
-		c = 1		
 
-    		data.body.tracks.items.forEach(function(item) {
-			var s_song_name = item.name
-			var s_song_image = item.album.images[1].url
-			var s_song_artist = item.artists[0].name
-			var s_song_preview = item.preview_url
-			var s_song_external = item.external_urls.spotify
+		for (c = 0; c < 10; c ++) {
+			var s_song_name = data.body.tracks.items[c].name
+			var s_song_image = data.body.tracks.items[c].album.images[1].url
+			var s_song_artist = data.body.tracks.items[c].artists[0].name
+			var s_song_preview = data.body.tracks.items[c].preview_url
+			var s_song_external = data.body.tracks.items[c].external_urls.spotify
 
 			message =
 			   	{
@@ -1017,12 +975,8 @@ function kittenMessage(recipientId, text) {
                             	}
 
 			// add each message to the array of songs
-			if (c <= 10) {
-				elem.push(message)
-				c ++
-			}
-
-   		 })
+			elem.push(message)
+   		 }
 
 		if (elem.length > 0) {
 			// create message with multiple songs
