@@ -534,6 +534,7 @@ function sendMessage(recipientId, message) {
 function kittenMessage(recipientId, text) {
 
     // TODO: add API's to dod feed
+    // TODO: change to horizontal scroll
     // generate random daily deals
     if (text.toUpperCase().indexOf('DOD') >= 0) {
 
@@ -866,6 +867,12 @@ function kittenMessage(recipientId, text) {
     // give Spotify links based on input
 	// format 1: play <track> -- <artist>
 	// format 2: <category> playlist
+	// TODO: format 3: play <track>
+	// TODO: format 4: play songs by <artist>
+	// TODO: format 5: play new songs
+	// TODO: format 6: play featured songs
+
+    // TODO: check for no results
     else if (text.toUpperCase().indexOf('PLAY') >= 0) {
 
 	    // tokenize text
@@ -910,21 +917,31 @@ function kittenMessage(recipientId, text) {
 
    		 })
 
-		// create message with multiple playlists
-		message_final = {
-                	"attachment": {
-                   	"type": "template",
-                    	"payload": {
-                        	"template_type": "generic",
-                        	"elements": elem
-                    	}	
-                	}
-            	};
+		if (elem.length > 0) {
+			// create message with multiple playlists
+			message_final = {
+                		"attachment": {
+                   		"type": "template",
+                    		"payload": {
+                        		"template_type": "generic",
+                       	 		"elements": elem
+                    		}	
+                		}
+            		};
 
-		// send message list
-            	sendMessage(recipientId, message_final);
-		called = false;
-		return true;
+			// send message list
+            		sendMessage(recipientId, message_final);
+			called = false;
+			return true;
+
+		} else {
+			// send no results message
+            		sendMessage(recipientId, {text: 
+	"No results found. Make sure your category input isn't misspelled and that the category exists!"
+				});
+			called = false;
+			return true;			
+		}
 
   		}, function(err) {
     		console.log('Something went wrong!-------------------', err);
@@ -980,7 +997,7 @@ function kittenMessage(recipientId, text) {
                                 	"title": "Listen to full song"}]
                             	}
 
-			// add each message to the array of playlists
+			// add each message to the array of songs
 			if (c <= 10) {
 				elem.push(message)
 				c ++
@@ -988,21 +1005,30 @@ function kittenMessage(recipientId, text) {
 
    		 })
 
-		// create message with multiple playlists
-		message_final = {
-                	"attachment": {
-                   	"type": "template",
-                    	"payload": {
-                        	"template_type": "generic",
-                        	"elements": elem
-                    	}	
-                	}
-            	};
+		if (elem.length > 0) {
+			// create message with multiple songs
+			message_final = {
+                		"attachment": {
+                   		"type": "template",
+                    		"payload": {
+                        		"template_type": "generic",
+                        		"elements": elem
+                    		}	
+                		}
+            		};
 
-		// send message list
-            	sendMessage(recipientId, message_final);
-		called = false;
-		return true;
+			// send message list
+            		sendMessage(recipientId, message_final);
+			called = false;
+			return true;
+		} else {
+			// send no results message
+            		sendMessage(recipientId, {text: 
+	"No results found. Make sure your category input isn't misspelled and that the category exists!"
+				});
+			called = false;
+			return true;			
+		}
 
   		}, function(err) {
     		console.log('Something went wrong!-------------------', err);
@@ -1013,7 +1039,7 @@ function kittenMessage(recipientId, text) {
 	// incorrect format erorr
 	else {
 				sendMessage(recipientId, {text: 
-"Invalid search - make sure your message looks like:\n<category> playlist for a playlist\nplay <track> by <artist> for a specific song"
+"Invalid search - make sure your message looks like:\n<category> playlist for a playlist\nplay <track> -- <artist> for a specific song"
 				});
 				called = false;
 				return true;	
