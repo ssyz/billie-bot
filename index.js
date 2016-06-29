@@ -51,6 +51,7 @@ app.post('/webhook', function (req, res) {
         if (event.message && event.message.text) {
 	    // TODO: make more responses random
 	    // TODO: check for negation in each thing
+	    // TODO: make sure the words are by themselves
             if (!kittenMessage(event.sender.id, event.message.text)) {
 		// introduction response
 		if (event.message.text.toUpperCase().indexOf('HI') == 0 
@@ -540,6 +541,7 @@ function kittenMessage(recipientId, text) {
 
 	    var ebay_url = "http://api.epn.ebay.com/deals/v1/country/us/feed/json?feedType=json&count=50"
 	    var gilt_url = "https://api.gilt.com/v1/sales/active.json?apikey=64134c63e63955dcb0200aefc67c94ce09e3fe22e8e96dadae0a14797900e7f8"
+	    ebay_elem = []
 
 	    // generate random daily deal from ebay
 	    request({
@@ -548,38 +550,56 @@ function kittenMessage(recipientId, text) {
 	    }, function (error, response, body) {
 
    	    	if (!error && response.statusCode === 200) {
-			var msg = body.entry[Math.floor(Math.random()*body.entry.length)]
-            		var ebay_title = msg.title
-	    		var ebay_DealURL = msg.DealURL
-	    		var ebay_ImageURL = msg.ImageURL
-			var ebay_webUrl = "http://deals.ebay.com/"
 
-			message = {
+			for (x = 0; x < 10; x ++) {
+				// var msg = body.entry[x][Math.floor(Math.random()*body.entry.length)]
+            			var ebay_title = body.entry[x].title
+	    			var ebay_DealURL = body.entry[x].DealURL
+	    			var ebay_ImageURL = body.entry[x].ImageURL
+				var ebay_webUrl = "http://deals.ebay.com/"
+
+				message = {
+                			"attachment": {
+                    			"type": "template",
+                    			"payload": {
+                        			"template_type": "generic",
+                        			"elements": [
+			    			{
+                            			"title": ebay_title,
+			    			"subtitle": "provided by ebay",
+                            			"image_url": ebay_ImageURL ,
+                            			"buttons": [
+							{
+                                			"type": "web_url",
+                                			"url": ebay_DealURL,
+                                			"title": "Show details"}, 
+							{
+                                			"type": "web_url",
+                                			"url": ebay_webUrl,
+                                			"title": "More from ebay"}]
+                            			}
+						]
+                    				}	
+                			}
+            			};
+
+            			ebay_elem.push(message);
+		    }
+
+		    // create message with multiple movie elements
+			ebay_message_final = {
                 		"attachment": {
                     		"type": "template",
                     		"payload": {
                         		"template_type": "generic",
-                        		"elements": [
-			    		{
-                            		"title": ebay_title,
-			    		"subtitle": "provided by ebay",
-                            		"image_url": ebay_ImageURL ,
-                            		"buttons": [
-						{
-                                		"type": "web_url",
-                                		"url": ebay_DealURL,
-                                		"title": "Show details"}, 
-						{
-                                		"type": "web_url",
-                                		"url": ebay_webUrl,
-                                		"title": "More from ebay"}]
-                            		}
-					]
-                    			}	
+                        		"elements": ebay_elem
+                    		}	
                 		}
             		};
-    
-            		sendMessage(recipientId, message);
+
+		    // send message list
+            	    sendMessage(recipientId, ebay_message_final);
+
     		}
 	    })
 
@@ -1028,45 +1048,6 @@ function kittenMessage(recipientId, text) {
     
     	return false;
 
-
-// example rich message
-/*
-    if (values.length === 3 && values[0] === 'kitten') {
-        if (Number(values[1]) > 0 && Number(values[2]) > 0) {
-            
-            var imageUrl = "https://placekitten.com/" + Number(values[1]) + "/" + Number(values[2]);
-            
-            message = {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": [{
-                            "title": "Kitten",
-                            "subtitle": "Cute kitten picture",
-                            "image_url": imageUrl ,
-                            "buttons": [{
-                                "type": "web_url",
-                                "url": imageUrl,
-                                "title": "Show kitten"
-                                }, {
-                                "type": "postback",
-                                "title": "I like this",
-                                "payload": "User " + recipientId + " likes kitten " + imageUrl,
-                            }]
-                        }]
-                    }
-                }
-            };
-    
-            sendMessage(recipientId, message);
-            
-            return true;
-        }
-    }
-    
-    return false;
-*/
 
 // TODO: Create tutorial
 	// use buttons of text
